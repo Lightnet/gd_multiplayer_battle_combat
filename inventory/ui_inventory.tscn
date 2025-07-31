@@ -1,0 +1,106 @@
+[gd_scene load_steps=6 format=3 uid="uid://cxb811o6q4mb"]
+
+[ext_resource type="Script" uid="uid://ckj4268ou0eaa" path="res://inventory/inventory_interface.gd" id="1_ew6xj"]
+[ext_resource type="PackedScene" uid="uid://bejcrr8de4ul8" path="res://inventory/inventory.tscn" id="2_4fm1i"]
+[ext_resource type="PackedScene" uid="uid://c5l1jiesfal5" path="res://inventory/slot.tscn" id="3_cp4o6"]
+[ext_resource type="PackedScene" uid="uid://dahrqhj48t1g6" path="res://inventory/hot_bar_inventory.tscn" id="4_w4dsk"]
+[ext_resource type="Script" uid="uid://cchye8dnyf7da" path="res://scripts/reticle.gd" id="5_ar5ji"]
+
+[node name="UI" type="CanvasLayer"]
+
+[node name="TextureRect" type="ColorRect" parent="."]
+visible = false
+custom_minimum_size = Vector2(2, 2)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1.0
+offset_top = -1.0
+offset_right = 1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+mouse_filter = 2
+
+[node name="InventoryInterface" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ew6xj")
+
+[node name="PlayerInventory" parent="InventoryInterface" instance=ExtResource("2_4fm1i")]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 50.0
+offset_bottom = 50.0
+
+[node name="EquipInventory" parent="InventoryInterface" instance=ExtResource("2_4fm1i")]
+layout_mode = 0
+offset_left = 450.0
+offset_top = 10.0
+offset_right = 466.0
+offset_bottom = 26.0
+
+[node name="ExternalInventory" parent="InventoryInterface" instance=ExtResource("2_4fm1i")]
+visible = false
+layout_mode = 0
+offset_left = 645.0
+offset_top = 150.0
+offset_right = 685.0
+offset_bottom = 190.0
+
+[node name="GrabbedSlot" parent="InventoryInterface" instance=ExtResource("3_cp4o6")]
+modulate = Color(1, 1, 1, 0.529412)
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+
+[node name="HotBarInventory" parent="." instance=ExtResource("4_w4dsk")]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -210.0
+offset_top = -80.0
+offset_right = 210.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 8
+
+[node name="Reticle" type="CenterContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_ar5ji")
+
+[node name="top" type="Line2D" parent="Reticle"]
+points = PackedVector2Array(0, -5, 0, -15)
+width = 2.0
+
+[node name="right" type="Line2D" parent="Reticle"]
+points = PackedVector2Array(5, 0, 15, 0)
+width = 2.0
+
+[node name="bottom" type="Line2D" parent="Reticle"]
+points = PackedVector2Array(0, 5, 0, 15)
+width = 2.0
+
+[node name="left" type="Line2D" parent="Reticle"]
+points = PackedVector2Array(-5, 0, -15, 0)
+width = 2.0
+
+[connection signal="gui_input" from="InventoryInterface" to="InventoryInterface" method="_on_gui_input"]

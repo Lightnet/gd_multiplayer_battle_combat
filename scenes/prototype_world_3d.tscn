@@ -1,0 +1,80 @@
+[gd_scene load_steps=11 format=3 uid="uid://obju20n54n4q"]
+
+[ext_resource type="Texture2D" uid="uid://x1b7vuk5ljq5" path="res://addons/kenney_prototype_textures/dark/texture_01.png" id="1_sxvvi"]
+[ext_resource type="Script" uid="uid://dk3kiml8jf427" path="res://scripts/ui/network_world.gd" id="1_v7jeb"]
+[ext_resource type="Texture2D" uid="uid://dvs1ljbm6k8im" path="res://addons/kenney_prototype_textures/orange/texture_02.png" id="3_cpo0o"]
+[ext_resource type="Texture2D" uid="uid://tti8il6bxm21" path="res://addons/kenney_prototype_textures/purple/texture_02.png" id="4_kxbxg"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4xowi"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_a202f"]
+sky_material = SubResource("ProceduralSkyMaterial_4xowi")
+
+[sub_resource type="Environment" id="Environment_noarx"]
+background_mode = 2
+sky = SubResource("Sky_a202f")
+tonemap_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_noarx"]
+albedo_texture = ExtResource("1_sxvvi")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yvmxy"]
+albedo_texture = ExtResource("3_cpo0o")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aapmh"]
+albedo_texture = ExtResource("4_kxbxg")
+uv1_triplanar = true
+
+[node name="Level" type="Node3D"]
+script = ExtResource("1_v7jeb")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_noarx")
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
+size = Vector3(32, 1, 32)
+material = SubResource("StandardMaterial3D_noarx")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -6.21623)
+material = SubResource("StandardMaterial3D_yvmxy")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 7.12975)
+material = SubResource("StandardMaterial3D_aapmh")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.905635, 0.424057, 0, -0.424057, 0.905635, 0, 2.65157, 3.96826)
+
+[node name="SpawnPoint" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.85687, 1.41262, 0)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label_NetworkType" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Network Type: Server"

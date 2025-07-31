@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="HitInfoData" load_steps=2 format=3 uid="uid://c0rd4ci6r5hyl"]
+
+[ext_resource type="Script" uid="uid://dkkimfebku13k" path="res://scripts/hit_info/hit_info_data.gd" id="1_hotap"]
+
+[resource]
+script = ExtResource("1_hotap")
+name = "Damage"
+amount_point = 1.0
+type = "Physical"
+metadata/_custom_type_script = "uid://dkkimfebku13k"

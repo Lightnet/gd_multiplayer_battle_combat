@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=3 uid="uid://1xfwr0subdal"]
+
+[ext_resource type="Script" uid="uid://bnubtnaydcpt3" path="res://prefabs/player/dummy_player.gd" id="1_x8v5m"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_x8v5m"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("Neck/Camera3D:rotation")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("Neck:rotation")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_k4wx6"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_x8v5m"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_x8v5m"]
+size = Vector3(0.2, 0.2, 0.2)
+
+[node name="DummyPlayer" type="CharacterBody3D"]
+collision_layer = 2
+script = ExtResource("1_x8v5m")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_x8v5m")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_k4wx6")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_x8v5m")
+
+[node name="Neck" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.632479, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Neck"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Neck/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.442978, -0.716157)
+mesh = SubResource("BoxMesh_x8v5m")

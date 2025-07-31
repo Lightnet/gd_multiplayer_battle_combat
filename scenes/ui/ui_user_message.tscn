@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://splkh8ooi5es"]
+
+[ext_resource type="Script" uid="uid://cmip06qfjgev7" path="res://scenes/ui/ui_user_message.gd" id="1_kyxfu"]
+
+[node name="UIUserMessage" type="HBoxContainer"]
+script = ExtResource("1_kyxfu")
+
+[node name="Label_User" type="Label" parent="."]
+layout_mode = 2
+text = "User"
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 2
+text = ":"
+
+[node name="Label_Message" type="Label" parent="."]
+layout_mode = 2
+text = "None"

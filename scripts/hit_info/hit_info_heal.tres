@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="HitInfoData" load_steps=2 format=3 uid="uid://dkj4ai528pgih"]
+
+[ext_resource type="Script" uid="uid://dkkimfebku13k" path="res://scripts/hit_info/hit_info_data.gd" id="1_ew2w8"]
+
+[resource]
+script = ExtResource("1_ew2w8")
+name = "Heal"
+amount_point = 10.0
+type = "Heal"
+metadata/_custom_type_script = "uid://dkkimfebku13k"

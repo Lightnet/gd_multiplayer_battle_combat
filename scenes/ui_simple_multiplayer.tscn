@@ -1,0 +1,107 @@
+[gd_scene load_steps=6 format=3 uid="uid://bf4xxro1kkkxn"]
+
+[ext_resource type="Script" uid="uid://bmuo4ut87hcrt" path="res://scripts/ui/ui_simple_multiplayer.gd" id="1_n8vsg"]
+[ext_resource type="Material" uid="uid://bptnb8x0kbn2l" path="res://materials/material_dark01.tres" id="2_n8vsg"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4xowi"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_a202f"]
+sky_material = SubResource("ProceduralSkyMaterial_4xowi")
+
+[sub_resource type="Environment" id="Environment_noarx"]
+background_mode = 2
+sky = SubResource("Sky_a202f")
+tonemap_mode = 2
+
+[node name="Level" type="Node3D"]
+editor_description = "Sample single scene for multiplayer test."
+script = ExtResource("1_n8vsg")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://1xfwr0subdal")
+spawn_path = NodePath("..")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_noarx")
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
+size = Vector3(32, 1, 32)
+material = ExtResource("2_n8vsg")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -3)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.905635, 0.424057, 0, -0.424057, 0.905635, 0, 2.65157, 3.96826)
+
+[node name="SpawnPoint" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.53307, -2.90539)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label_NetworkType" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 2.0
+offset_right = 170.0
+offset_bottom = 25.0
+text = "Network Type: None"
+
+[node name="Label_PlayerName" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_left = 174.0
+offset_top = 2.0
+offset_right = 341.0
+offset_bottom = 25.0
+text = "Network Type: None"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 25.0
+offset_right = 139.0
+offset_bottom = 65.0
+
+[node name="btn_host" type="Button" parent="CanvasLayer/Control/HBoxContainer"]
+layout_mode = 2
+text = "Host"
+
+[node name="btn_join" type="Button" parent="CanvasLayer/Control/HBoxContainer"]
+layout_mode = 2
+text = "Join"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_left = 94.0
+offset_top = 26.0
+offset_right = 140.0
+offset_bottom = 66.0
+
+[node name="btn_start" type="Button" parent="CanvasLayer/Control/HBoxContainer2"]
+layout_mode = 2
+text = "Start"
+
+[connection signal="spawned" from="MultiplayerSpawner" to="." method="_on_multiplayer_spawner_spawned"]
+[connection signal="pressed" from="CanvasLayer/Control/HBoxContainer/btn_host" to="." method="_on_btn_host_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/HBoxContainer/btn_join" to="." method="_on_btn_join_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/HBoxContainer2/btn_start" to="." method="_on_btn_start_pressed"]

@@ -1,0 +1,81 @@
+[gd_scene load_steps=15 format=3 uid="uid://6chk611xx0ni"]
+
+[ext_resource type="Script" uid="uid://ceai6tdcyvjsn" path="res://prefabs/player/player.gd" id="1_sxsrd"]
+[ext_resource type="Script" uid="uid://b3civt32joji" path="res://scripts/state_machine/state_machine.gd" id="2_30gqm"]
+[ext_resource type="Script" uid="uid://dkj2sawkdis54" path="res://scripts/state_machine/player/idle.gd" id="3_hvqk4"]
+[ext_resource type="Script" uid="uid://ca44cal825exw" path="res://scripts/state_machine/player/walking.gd" id="4_b6byk"]
+[ext_resource type="Script" uid="uid://sf26co4w11do" path="res://scripts/state_machine/player/jumping.gd" id="5_6barq"]
+[ext_resource type="Script" uid="uid://jy1ub6wifm7o" path="res://scripts/state_machine/player/falling.gd" id="6_agiw0"]
+[ext_resource type="Script" uid="uid://eov2xqyxjt0l" path="res://scripts/state_machine/player/crouching.gd" id="7_ot5ig"]
+[ext_resource type="Script" uid="uid://bvi3aq5tyow4l" path="res://scripts/state_machine/player/prone.gd" id="8_t13t3"]
+[ext_resource type="Script" uid="uid://cjynod4sn5m54" path="res://scripts/state_machine/player/flying.gd" id="9_8hk3c"]
+[ext_resource type="Script" uid="uid://gw376hh42buv" path="res://scripts/state_machine/player/sliding.gd" id="10_ocyg1"]
+[ext_resource type="Script" uid="uid://br658uah1443n" path="res://scripts/state_machine/player/running.gd" id="11_408ek"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tvfjm"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_tvfjm"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_30gqm"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_sxsrd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_tvfjm")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_tvfjm")
+
+[node name="Neck" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Neck"]
+
+[node name="RightHand" type="Node3D" parent="Neck/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.293, -0.435, -0.723)
+
+[node name="RayCast3D" type="RayCast3D" parent="Neck/Camera3D"]
+target_position = Vector3(0, 0, -5)
+collision_mask = 2
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("2_30gqm")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("3_hvqk4")
+
+[node name="Walking" type="Node" parent="StateMachine"]
+script = ExtResource("4_b6byk")
+
+[node name="Jumping" type="Node" parent="StateMachine"]
+script = ExtResource("5_6barq")
+
+[node name="Death" type="Node" parent="StateMachine"]
+
+[node name="Falling" type="Node" parent="StateMachine"]
+script = ExtResource("6_agiw0")
+
+[node name="Crouching" type="Node" parent="StateMachine"]
+script = ExtResource("7_ot5ig")
+
+[node name="Prone" type="Node" parent="StateMachine"]
+script = ExtResource("8_t13t3")
+
+[node name="Flying" type="Node" parent="StateMachine"]
+script = ExtResource("9_8hk3c")
+
+[node name="Sliding" type="Node" parent="StateMachine"]
+script = ExtResource("10_ocyg1")
+
+[node name="Running" type="Node" parent="StateMachine"]
+script = ExtResource("11_408ek")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_30gqm")

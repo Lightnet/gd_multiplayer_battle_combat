@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemDataEquip" load_steps=4 format=3 uid="uid://cwun64xow8ywe"]
+
+[ext_resource type="Script" uid="uid://crc6e4bbl8ej6" path="res://item/item_data_equip.gd" id="1_s3j1w"]
+[ext_resource type="Texture2D" uid="uid://dquy8x6hx6o0h" path="res://item/#1 - Transparent Icons.png" id="2_quibl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o8wkw"]
+atlas = ExtResource("2_quibl")
+region = Rect2(96, 224, 32, 32)
+
+[resource]
+script = ExtResource("1_s3j1w")
+defence = 1
+name = "Iron helm"
+description = "Iron Helm"
+stackable = false
+texture = SubResource("AtlasTexture_o8wkw")

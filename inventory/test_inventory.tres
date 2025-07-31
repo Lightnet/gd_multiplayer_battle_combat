@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="InventoryData" load_steps=9 format=3 uid="uid://bvv2qgu6rmcmc"]
+
+[ext_resource type="Script" uid="uid://cry2c4w4qgo6u" path="res://inventory/inventory_data.gd" id="1_j83om"]
+[ext_resource type="Script" uid="uid://dfdpwc3aabxc1" path="res://inventory/slot_data.gd" id="2_pggow"]
+[ext_resource type="Resource" uid="uid://cmmi21ih6kcoe" path="res://item/items/apple.tres" id="3_gl4s4"]
+[ext_resource type="Resource" uid="uid://dfmlc1m3dbj2a" path="res://item/items/blue_book.tres" id="4_aiuun"]
+[ext_resource type="Resource" uid="uid://cwun64xow8ywe" path="res://item/items/iron_helm.tres" id="5_g3rim"]
+
+[sub_resource type="Resource" id="Resource_qbb0t"]
+script = ExtResource("2_pggow")
+item_data = ExtResource("3_gl4s4")
+quantity = 10
+metadata/_custom_type_script = "uid://dfdpwc3aabxc1"
+
+[sub_resource type="Resource" id="Resource_lespn"]
+script = ExtResource("2_pggow")
+item_data = ExtResource("4_aiuun")
+quantity = 1
+metadata/_custom_type_script = "uid://dfdpwc3aabxc1"
+
+[sub_resource type="Resource" id="Resource_y6nr6"]
+script = ExtResource("2_pggow")
+item_data = ExtResource("5_g3rim")
+quantity = 1
+metadata/_custom_type_script = "uid://dfdpwc3aabxc1"
+
+[resource]
+script = ExtResource("1_j83om")
+slot_datas = Array[ExtResource("2_pggow")]([null, SubResource("Resource_qbb0t"), null, null, SubResource("Resource_lespn"), null, SubResource("Resource_y6nr6"), null, null, null])
+metadata/_custom_type_script = "uid://cry2c4w4qgo6u"
