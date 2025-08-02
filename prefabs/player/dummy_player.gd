@@ -141,10 +141,11 @@ func _jump(delta: float) -> Vector3:
 #@rpc("call_local")#nope
 @rpc("call_local") #nope
 func fire_projectile(pid:int):
-	push_error("is_server: " , multiplayer.is_server() , " FIRE ")
-	print("fire test...")
+	#push_error("is_server: " , multiplayer.is_server() , " FIRE ")
+	#print("fire test...")
 	var dummy_box = DUMMY_BULLET.instantiate()
 	dummy_box.set_multiplayer_authority(pid)
+	dummy_box.own_body = self
 	
 	Global.game_controller.current_3d_scene.add_child(dummy_box)
 	await get_tree().create_timer(0.01).timeout #wait for sync
@@ -153,7 +154,5 @@ func fire_projectile(pid:int):
 	dummy_box.set_transform(fire_point.global_transform)
 	if dummy_box.has_method("init_direction"):
 		dummy_box.init_direction()
-	
 	#pass
-
 #

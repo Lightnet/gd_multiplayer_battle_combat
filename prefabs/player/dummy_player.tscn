@@ -42,5 +42,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.632479, 0)
 [node name="Camera3D" type="Camera3D" parent="Neck"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Neck/Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.442978, -0.716157)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.442978, -1.6524)
 mesh = SubResource("BoxMesh_x8v5m")

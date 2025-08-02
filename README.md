@@ -33,6 +33,8 @@
 	- [x] jump
 	- [x] camera
 	- [x] shoot (no damage)
+		- [x] projectile collision test
+		- [ ] layer and mask testing
  - [ ] ui
 	- [x] main menu
 	- [x] multiplayer
@@ -64,11 +66,26 @@ List peer id and name
 ```
 ```
 
-# network:
-  Just prototyping how to handle network. Need to have correcy sync and spawn item correctly.
+# Network:
+  Just prototyping how to handle network. Need to have sync and spawn item correctly.
 - 
 
+# Collision:
+	
+## Rigbody3D:
+  Need to config the Solver to able collision event for _on_body_shape_entered.
+```
+contact_monitor = true
+max_contacts_reported = 1
+```
 
+
+
+# Notes:
+- network error sync on
+	- projectile spawn out of sync
+	- spawn player out out of sync
+	- 
 
 # Design notes:
   - Host and Join are working
