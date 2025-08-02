@@ -1,0 +1,33 @@
+[gd_scene load_steps=7 format=3 uid="uid://c2p6cxpkt4te3"]
+
+[ext_resource type="Texture2D" uid="uid://ctkgt6xwqos06" path="res://addons/kenney_prototype_textures/red/texture_02.png" id="1_45a6s"]
+[ext_resource type="Script" uid="uid://ds2mirbtfmskp" path="res://prefabs/dummy_bullet/dummy_bullet.gd" id="1_axhwb"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ddljw"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[sub_resource type="BoxMesh" id="BoxMesh_kfbow"]
+size = Vector3(0.1, 0.1, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sikby"]
+albedo_texture = ExtResource("1_45a6s")
+uv1_triplanar = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_45a6s"]
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="DummyBullet" type="RigidBody3D"]
+gravity_scale = 0.0
+script = ExtResource("1_axhwb")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_ddljw")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_kfbow")
+surface_material_override/0 = SubResource("StandardMaterial3D_sikby")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_45a6s")

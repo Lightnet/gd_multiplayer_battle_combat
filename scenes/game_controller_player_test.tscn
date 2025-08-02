@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://uvga6yvhxqnx"]
+
+[ext_resource type="Script" uid="uid://cw6c22srufran" path="res://scripts/game_controller.gd" id="1_wib6i"]
+[ext_resource type="PackedScene" uid="uid://jbai504hml1m" path="res://scenes/player_test_area.tscn" id="2_wib6i"]
+
+[node name="GameController" type="Node" node_paths=PackedStringArray("world_3d", "world_2d", "gui", "current_3d_scene")]
+script = ExtResource("1_wib6i")
+world_3d = NodePath("World3D")
+world_2d = NodePath("World2D")
+gui = NodePath("GUI")
+current_3d_scene = NodePath("GUI/Level")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://1xfwr0subdal", "uid://obju20n54n4q", "uid://6chk611xx0ni", "uid://c8slhw2taqiup", "uid://bsk1tpgby6qml", "uid://c2p6cxpkt4te3")
+spawn_path = NodePath("..")
+
+[node name="World2D" type="Node2D" parent="."]
+
+[node name="World3D" type="Node3D" parent="."]
+
+[node name="GUI" type="CanvasLayer" parent="."]
+
+[node name="Level" parent="GUI" instance=ExtResource("2_wib6i")]

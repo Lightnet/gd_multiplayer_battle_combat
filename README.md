@@ -28,6 +28,11 @@
  	- [ ] projectiles
 	- [ ] melee
 	- [ ] spawn dummy cube
+ - [ ] player
+	- [x] movement
+	- [x] jump
+	- [x] camera
+	- [x] shoot (no damage)
  - [ ] ui
 	- [x] main menu
 	- [x] multiplayer
@@ -38,6 +43,13 @@
 	- [ ] save
 	- [ ] load
  - [ ] dev console 
+
+# scenes:
+- scenes/game_controller_player_test.tscn
+	- single player test
+- scenes/game_controller_host_join.tscn
+	- multiplayer test
+
 
 # dev console:
  This section is for dev console using the backqute for half life console commands.
@@ -51,6 +63,10 @@ List peer id and name
 
 ```
 ```
+
+# network:
+  Just prototyping how to handle network. Need to have correcy sync and spawn item correctly.
+- 
 
 
 

@@ -1,9 +1,12 @@
 extends CharacterBody3D
 
 const DUMMY_BOX = preload("res://prefabs/dummy_box/dummy_box.tscn")
+const DUMMY_SMALL_BOX = preload("res://prefabs/dummy_small_box/dummy_small_box.tscn")
+const DUMMY_BULLET = preload("res://prefabs/dummy_bullet/dummy_bullet.tscn")
 
 #@export_category("Player")
 @onready var camera = $Neck/Camera3D
+@onready var fire_point: MeshInstance3D = $Neck/Camera3D/MeshInstance3D
 
 @export var speed = 8.0
 @export var acceleration = 5.0
@@ -64,13 +67,13 @@ func _unhandled_input(event: InputEvent) -> void:
 		#pass
 	
 func _input(event):
-	#if not is_multiplayer_authority(): return
+	if not is_multiplayer_authority(): return
 	if event is InputEventMouseMotion:
 		#print("mo?")
 		look_dir = event.relative * 0.001
 		if mouse_captured: _rotate_camera()
 	if Input.is_action_just_pressed("primaryfire"):
-		test_fire.rpc()
+		fire_projectile.rpc(multiplayer.get_unique_id())
 		#pass
 	pass
 
@@ -134,16 +137,22 @@ func _jump(delta: float) -> Vector3:
 	jump_vel = Vector3.ZERO if is_on_floor() else jump_vel.move_toward(Vector3.ZERO, gravity * delta)
 	return jump_vel
 	
-@rpc("any_peer","call_local")
-func test_fire():
+#@rpc("any_peer","call_remote") #nope
+#@rpc("call_local")#nope
+@rpc("call_local") #nope
+func fire_projectile(pid:int):
 	push_error("is_server: " , multiplayer.is_server() , " FIRE ")
 	print("fire test...")
-	var dummy_box = DUMMY_BOX.instantiate()
+	var dummy_box = DUMMY_BULLET.instantiate()
+	dummy_box.set_multiplayer_authority(pid)
 	
 	Global.game_controller.current_3d_scene.add_child(dummy_box)
 	await get_tree().create_timer(0.01).timeout #wait for sync
 	#dummy_box.set_global_position(Vector3(0.0,2.0,0.0)) #test
-	dummy_box.set_global_position(global_position)
+	#dummy_box.set_global_position(fire_point.global_position)
+	dummy_box.set_transform(fire_point.global_transform)
+	if dummy_box.has_method("init_direction"):
+		dummy_box.init_direction()
 	
 	#pass
 
