@@ -163,16 +163,24 @@ func fire_projectile(pid:int):
 	#pass
 	
 # Does not work on multiplayer since it object but not recommend to allow which they can inject malice code.  
-@rpc("any_peer","call_local") #
+#@rpc("any_peer","call_local") #
 func _on_receive_hit(hit_info_data:HitInfoData)->void:
 	print("player name id:", name)
 	#stats_data.health -= amount
-	print("HEALTH: ", stats_data.health)
+	#print("HEALTH: ", stats_data.health)
 	#print("player _hit_info_data")
 	#if hit_info_data.type == "Physical":
 		#stats_data.health -= hit_info_data.amount_points
 		#stats_data.health -= amount
-		#print("HEALTH: ", stats_data.health)	
+		#print("HEALTH: ", stats_data.health)
+	_on_receive_hit_params.rpc_id(get_multiplayer_authority(), "Physical", 10)
+	pass
+	
+@rpc("any_peer","call_local") #
+func _on_receive_hit_params(_type:String,_amount:float)->void:
+	if _type == "Physical":
+		stats_data.health -= _amount
+		print("HEALTH: ", stats_data.health)
 	pass
 	
 # multiplayer for json

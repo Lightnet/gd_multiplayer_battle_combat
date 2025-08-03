@@ -19,15 +19,16 @@ func _on_body_entered(body: Node) -> void:
 		#on_remove.rpc()
 	# _on_receive_hit_float
 	
-	if body.has_method("_on_receive_hit_float"):
-		body._on_receive_hit_float.rpc_id(body.get_multiplayer_authority(), 10.0)
+	# working
+	#if body.has_method("_on_receive_hit_float"):
+		#body._on_receive_hit_float.rpc_id(body.get_multiplayer_authority(), 10.0)
 		
-	#if body.has_method("_on_receive_hit"):
-		#var hit_info_data = HitInfoData.new()
-		#hit_info_data.amount_points = 10.0
-		##send data to match id
-		##body._on_receive_hit.rpc_id(body.get_multiplayer_authority(), hit_info_data)
-		#body._on_receive_hit.rpc_id(body.get_multiplayer_authority(), 10.0)
+	if body.has_method("_on_receive_hit"):
+		var hit_info_data = HitInfoData.new()
+		hit_info_data.amount_points = 10.0
+		#send data to match id
+		# body._on_receive_hit.rpc_id(body.get_multiplayer_authority(), hit_info_data)
+		body._on_receive_hit(hit_info_data)
 		
 	#if body is Player:
 		#if body.has_method("_on_receive_hit"):

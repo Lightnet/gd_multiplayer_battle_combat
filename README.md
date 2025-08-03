@@ -64,9 +64,11 @@ ping # get  multiplayer.get_unique_id(), multiplayer.is_server()
 ```
 
 # Network:
+  RPCs (Remote Procedure Calls)
+
   Just prototyping how to handle network. Need to have sync and spawn item correctly.
   
-  Note that need to set up and assign set_multiplayer_authority(player id)
+  Note that need to set up and assign set_multiplayer_authority(player id) when handle player who own to spawn item props.
 ```
 @rpc("call_local")
 func shoot(shooter_pid):
@@ -80,6 +82,17 @@ func shoot(shooter_pid):
 	For reason for await is need to wait for node tree to be added and update the data to scene to other peers else error.
 
 	As well assign the set_multiplayer_authority on the node to handle identity on the network for who in control of the instance or create to node object.
+
+  Note that class resources does not work as become object type in rpc. It can only send parameters not object data.
+```
+```
+# List:
+- Dictionary 
+- Array
+- 
+
+## notes:
+ - Allowing direct transmission of arbitrary objects could pose security risks, as it might enable remote code injection or other vulnerabilities if not handled carefully.
 
 # Collision:
 	
