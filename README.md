@@ -1,11 +1,11 @@
 # gd multiplayer battle combat
 
 # Information:
- This work in progress. This sample project for multiplayer.
+ Work in progress. 
  
- This is test how handle user input.  For multiplayer which need to know how godot multiplayer peer works. As working on no auth for testing the builds. Well there will be mixed.
+ This sample project for multiplayer. To know how GodotEngine Multiplayer Peer works. There no auth checks yet.
 
- As well how handle entity projectiles and hit collisions.
+ To create some basic features for player controller to make first person shooter and melee. As well how handle entity projectiles and hit collisions. It will be expand later for combat system test. 
 
 # Features and work in progress:
  - [ ] network
@@ -23,11 +23,12 @@
  	- [x] inputs
 	- [ ] quit clean up
  - [ ] entity
- 	- [ ] health check and damage
- 	- [ ] damage
- 	- [ ] projectiles
+ 	- [x] health check and damage
+ 	- [x] damage
+ 	- [x] projectiles
 	- [ ] melee
-	- [ ] spawn dummy cube
+	- [x] spawn dummy cube
+	- [x] spawn dummy projectile cube
  - [ ] player
 	- [x] movement
 	- [x] jump
@@ -52,23 +53,33 @@
 - scenes/game_controller_host_join.tscn
 	- multiplayer test
 
-
 # dev console:
- This section is for dev console using the backqute for half life console commands.
+ This section is for dev console using the backqute for half life console commands. It use an add on plugin from assets.
 
  This is work in progress to make sure the network server and client are sync.
 
 ```
-players 
-```
-List peer id and name
-
-```
+players # List peer id and name
+ping # get  multiplayer.get_unique_id(), multiplayer.is_server()
 ```
 
 # Network:
   Just prototyping how to handle network. Need to have sync and spawn item correctly.
-- 
+  
+  Note that need to set up and assign set_multiplayer_authority(player id)
+```
+@rpc("call_local")
+func shoot(shooter_pid):
+	var bullet = BULLET.instantiate()
+	bullet.set_multiplayer_authority(shooter_pid)
+	get_parent().add_child(bullet)
+	# delay 
+	await get_tree().create_timer(0.01).timeout #wait for sync
+	bullet.transform = $GunCOntainer/GunSprite/Muzzle.global_transform
+```
+	For reason for await is need to wait for node tree to be added and update the data to scene to other peers else error.
+
+	As well assign the set_multiplayer_authority on the node to handle identity on the network for who in control of the instance or create to node object.
 
 # Collision:
 	

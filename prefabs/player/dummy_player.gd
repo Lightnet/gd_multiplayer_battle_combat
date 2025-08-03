@@ -1,4 +1,8 @@
 extends CharacterBody3D
+class_name Player
+
+@export var stats_data:StatsData
+
 
 const DUMMY_BOX = preload("res://prefabs/dummy_box/dummy_box.tscn")
 const DUMMY_SMALL_BOX = preload("res://prefabs/dummy_small_box/dummy_small_box.tscn")
@@ -42,6 +46,8 @@ func _enter_tree():
 	pass
 	
 func _ready():
+	if not stats_data:
+		stats_data = StatsData.new()
 	if not is_multiplayer_authority(): return
 	#print("is_multiplayer_authority():", is_multiplayer_authority())
 	camera.current = true
@@ -139,7 +145,7 @@ func _jump(delta: float) -> Vector3:
 	
 #@rpc("any_peer","call_remote") #nope
 #@rpc("call_local")#nope
-@rpc("call_local") #nope
+@rpc("call_local") #okay
 func fire_projectile(pid:int):
 	#push_error("is_server: " , multiplayer.is_server() , " FIRE ")
 	#print("fire test...")
@@ -155,4 +161,29 @@ func fire_projectile(pid:int):
 	if dummy_box.has_method("init_direction"):
 		dummy_box.init_direction()
 	#pass
+	
+# Does not work on multiplayer since it object but not recommend to allow which they can inject malice code.  
+@rpc("any_peer","call_local") #
+func _on_receive_hit(hit_info_data:HitInfoData)->void:
+	print("player name id:", name)
+	#stats_data.health -= amount
+	print("HEALTH: ", stats_data.health)
+	#print("player _hit_info_data")
+	#if hit_info_data.type == "Physical":
+		#stats_data.health -= hit_info_data.amount_points
+		#stats_data.health -= amount
+		#print("HEALTH: ", stats_data.health)	
+	pass
+	
+# multiplayer for json
+@rpc("any_peer","call_local") # 
+func _on_receive_hit_json(_data:String)->void:
+	
+	pass
+	
+@rpc("any_peer","call_local") # 
+func _on_receive_hit_float(amount:float)->void:
+	stats_data.health -= amount
+	print("HEALTH: ", stats_data.health)
+	pass
 #
