@@ -21,10 +21,13 @@ func _ready() -> void:
 		btn_start.disabled = false
 	else:
 		btn_start.disabled = true
+	clear_messages()
 	#pass
 
-#func _process(delta: float) -> void:
-	#pass
+func clear_messages() -> void:
+	for node_msg in vbc_messages.get_children():
+		node_msg.queue_free()
+	pass
 
 func _on_line_edit_chat_message_gui_input(_event: InputEvent) -> void:
 	#if event

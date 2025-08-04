@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://1xfwr0subdal"]
+[gd_scene load_steps=7 format=3 uid="uid://1xfwr0subdal"]
 
 [ext_resource type="Script" uid="uid://bnubtnaydcpt3" path="res://prefabs/player/dummy_player.gd" id="1_x8v5m"]
+[ext_resource type="PackedScene" uid="uid://cokjeey4g1xpt" path="res://prefabs/dummy_stick/dummy_stick.tscn" id="2_f6mip"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_x8v5m"]
 properties/0/path = NodePath(".:position")
@@ -26,9 +27,10 @@ properties/4/replication_mode = 1
 [sub_resource type="BoxMesh" id="BoxMesh_x8v5m"]
 size = Vector3(0.2, 0.2, 0.2)
 
-[node name="DummyPlayer" type="CharacterBody3D"]
+[node name="DummyPlayer" type="CharacterBody3D" node_paths=PackedStringArray("fire_point")]
 collision_layer = 2
 script = ExtResource("1_x8v5m")
+fire_point = NodePath("Neck/Camera3D/HandRight")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_x8v5m")
@@ -44,6 +46,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.632479, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Neck"]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Neck/Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.442978, -0.856974)
+[node name="HandRight" type="MeshInstance3D" parent="Neck/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.385877, -0.442978, -0.856974)
 mesh = SubResource("BoxMesh_x8v5m")
+
+[node name="melee_stick" parent="Neck/Camera3D/HandRight" instance=ExtResource("2_f6mip")]

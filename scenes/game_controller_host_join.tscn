@@ -11,7 +11,7 @@ gui = NodePath("GUI")
 current_gui_scene = NodePath("GUI/UIMenuMultiplayer")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("uid://1xfwr0subdal", "uid://obju20n54n4q", "uid://o5qniq57fri1", "uid://bpy7e3e87fttv")
+_spawnable_scenes = PackedStringArray("uid://1xfwr0subdal", "uid://obju20n54n4q", "uid://o5qniq57fri1", "uid://bpy7e3e87fttv", "uid://cokjeey4g1xpt")
 spawn_path = NodePath("..")
 
 [node name="World2D" type="Node2D" parent="."]

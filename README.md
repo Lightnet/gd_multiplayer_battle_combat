@@ -26,18 +26,19 @@
  	- [x] health check and damage
  	- [x] damage
  	- [x] projectiles
-	- [ ] melee
-	- [x] spawn dummy cube
-	- [x] spawn dummy projectile cube
+	- [x] dummy melee (simple test)
+	- [x] spawn dummy cube (not collision)
+	- [x] spawn dummy projectile cube (move in -z direction)
  - [ ] player
 	- [x] movement
 	- [x] weapon bullet 0
 	- [x] weapon bullet 1
 	- [x] jump
 	- [x] camera
-	- [x] shoot (no damage)
+	- [x] shoot
 		- [x] projectile collision test
 		- [ ] layer and mask testing
+	- [x] melee test with animation simple
  - [ ] ui
 	- [x] main menu
 	- [x] multiplayer

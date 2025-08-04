@@ -11,11 +11,13 @@ class_name Player
 const DUMMY_BULLET_GREEN = preload("res://prefabs/dummy_bullet/dummy_bullet_green.tscn")
 const DUMMY_BULLET_RED = preload("res://prefabs/dummy_bullet/dummy_bullet_red.tscn")
 
+@onready var melee_stick: Node3D = $Neck/Camera3D/HandRight/melee_stick
+
 @export var index_slot:int = 0
 
 #@export_category("Player")
 @onready var camera = $Neck/Camera3D
-@onready var fire_point: MeshInstance3D = $Neck/Camera3D/MeshInstance3D
+@export var fire_point: Node3D
 
 @export var speed = 8.0
 @export var acceleration = 5.0
@@ -84,13 +86,22 @@ func _input(event):
 		look_dir = event.relative * 0.001
 		if mouse_captured: _rotate_camera()
 	if Input.is_action_just_pressed("primaryfire"):
-		fire_projectile.rpc(multiplayer.get_unique_id())
+		if index_slot == 0:
+			fire_projectile.rpc(multiplayer.get_unique_id())
+		if index_slot == 1:
+			fire_projectile.rpc(multiplayer.get_unique_id())
+		if index_slot == 2:
+			fire_melee.rpc(multiplayer.get_unique_id())
+			pass
 		#pass
 	if Input.is_action_just_pressed("slot1"):
 		set_slot_idx.rpc_id(get_multiplayer_authority(), 0)
 		#pass
 	if Input.is_action_just_pressed("slot2"):
 		set_slot_idx.rpc_id(get_multiplayer_authority(), 1)
+		
+	if Input.is_action_just_pressed("slot3"):
+		set_slot_idx.rpc_id(get_multiplayer_authority(), 2)
 		#pass
 	pass
 	
@@ -159,6 +170,15 @@ func _jump(delta: float) -> Vector3:
 		return jump_vel
 	jump_vel = Vector3.ZERO if is_on_floor() else jump_vel.move_toward(Vector3.ZERO, gravity * delta)
 	return jump_vel
+	
+	
+@rpc("call_local") #okay
+func fire_melee(pid:int):
+	print("player melee")
+	#melee_stick.attack()
+	#need to call rpc_id since sync else it call many times
+	melee_stick.attack.rpc_id(get_multiplayer_authority())
+	#pass
 	
 #@rpc("any_peer","call_remote") #nope
 #@rpc("call_local")#nope

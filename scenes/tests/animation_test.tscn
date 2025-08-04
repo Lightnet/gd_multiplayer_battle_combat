@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://ccpjgurk8gdt2"]
+
+[ext_resource type="Script" uid="uid://d2cpvyms5atwu" path="res://scripts/tests/animation_test_melee.gd" id="1_1f43g"]
+[ext_resource type="PackedScene" uid="uid://cokjeey4g1xpt" path="res://prefabs/dummy_stick/dummy_stick.tscn" id="2_4hkhp"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1f43g"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_4hkhp"]
+sky_material = SubResource("ProceduralSkyMaterial_1f43g")
+
+[sub_resource type="Environment" id="Environment_yd2fk"]
+background_mode = 2
+sky = SubResource("Sky_4hkhp")
+tonemap_mode = 2
+
+[node name="animation_test" type="Node3D"]
+script = ExtResource("1_1f43g")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_yd2fk")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.03623)
+
+[node name="DummyStick" parent="." instance=ExtResource("2_4hkhp")]

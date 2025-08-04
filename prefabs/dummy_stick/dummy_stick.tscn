@@ -1,0 +1,98 @@
+[gd_scene load_steps=9 format=3 uid="uid://cokjeey4g1xpt"]
+
+[ext_resource type="Script" uid="uid://uw7kom8cjjjg" path="res://prefabs/dummy_stick/dummy_stick.gd" id="1_bdj5s"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_f6mip"]
+size = Vector3(0.1, 0.5, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_68pdb"]
+size = Vector3(0.1, 0.5, 0.1)
+
+[sub_resource type="Animation" id="Animation_4d08i"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("pivot:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ctgv6"]
+resource_name = "attack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("pivot:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-2.7432, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_bdj5s"]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("pivot:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ctgv6"]
+_data = {
+&"RESET": SubResource("Animation_4d08i"),
+&"attack": SubResource("Animation_ctgv6"),
+&"idle": SubResource("Animation_bdj5s")
+}
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_30fgs"]
+properties/0/path = NodePath("AnimationPlayer:current_animation")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("AnimationPlayer:active")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
+[node name="DummyStick" type="Node3D"]
+script = ExtResource("1_bdj5s")
+
+[node name="pivot" type="Node3D" parent="."]
+
+[node name="MeshStick" type="MeshInstance3D" parent="pivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.187673, 0)
+mesh = SubResource("BoxMesh_f6mip")
+skeleton = NodePath("../..")
+
+[node name="Area3D" type="Area3D" parent="pivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.186921, 0)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="pivot/Area3D"]
+shape = SubResource("BoxShape3D_68pdb")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ctgv6")
+}
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_30fgs")
+
+[connection signal="body_entered" from="pivot/Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
