@@ -4,9 +4,14 @@ class_name Player
 @export var stats_data:StatsData
 
 
-const DUMMY_BOX = preload("res://prefabs/dummy_box/dummy_box.tscn")
-const DUMMY_SMALL_BOX = preload("res://prefabs/dummy_small_box/dummy_small_box.tscn")
-const DUMMY_BULLET = preload("res://prefabs/dummy_bullet/dummy_bullet.tscn")
+#const DUMMY_BOX = preload("res://prefabs/dummy_box/dummy_box.tscn")
+#const DUMMY_SMALL_BOX = preload("res://prefabs/dummy_small_box/dummy_small_box.tscn")
+#const DUMMY_BULLET = preload("res://prefabs/dummy_bullet/dummy_bullet.tscn")
+
+const DUMMY_BULLET_GREEN = preload("res://prefabs/dummy_bullet/dummy_bullet_green.tscn")
+const DUMMY_BULLET_RED = preload("res://prefabs/dummy_bullet/dummy_bullet_red.tscn")
+
+@export var index_slot:int = 0
 
 #@export_category("Player")
 @onready var camera = $Neck/Camera3D
@@ -81,7 +86,19 @@ func _input(event):
 	if Input.is_action_just_pressed("primaryfire"):
 		fire_projectile.rpc(multiplayer.get_unique_id())
 		#pass
+	if Input.is_action_just_pressed("slot1"):
+		set_slot_idx.rpc_id(get_multiplayer_authority(), 0)
+		#pass
+	if Input.is_action_just_pressed("slot2"):
+		set_slot_idx.rpc_id(get_multiplayer_authority(), 1)
+		#pass
 	pass
+	
+@rpc("call_local")
+func set_slot_idx(idx:int):
+	print("Player ID:", get_multiplayer_authority(), " Slot: ", idx)
+	index_slot = idx
+	#pass
 
 func _physics_process(delta):
 	if not is_multiplayer_authority(): return
@@ -149,7 +166,12 @@ func _jump(delta: float) -> Vector3:
 func fire_projectile(pid:int):
 	#push_error("is_server: " , multiplayer.is_server() , " FIRE ")
 	#print("fire test...")
-	var dummy_box = DUMMY_BULLET.instantiate()
+	var dummy_box
+	print("index_slot: ", index_slot)
+	if index_slot == 0:
+		dummy_box = DUMMY_BULLET_RED.instantiate()
+	if index_slot == 1:
+		dummy_box = DUMMY_BULLET_GREEN.instantiate()
 	dummy_box.set_multiplayer_authority(pid)
 	dummy_box.own_body = self
 	

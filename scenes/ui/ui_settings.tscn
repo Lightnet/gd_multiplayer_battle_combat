@@ -1,0 +1,390 @@
+[gd_scene format=3 uid="uid://cunjac6i6wsa1"]
+
+[node name="UISettings" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/Panel"]
+custom_minimum_size = Vector2(512, 512)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -256.0
+offset_top = -256.0
+offset_right = 256.0
+offset_bottom = 256.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TabContainer" type="TabContainer" parent="CenterContainer/Panel/MarginContainer"]
+layout_mode = 2
+tab_alignment = 1
+current_tab = 1
+
+[node name="Game" type="TabBar" parent="CenterContainer/Panel/MarginContainer/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Game"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Game/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxC_Language" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Game/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/TabContainer/Game/MarginContainer/VBoxContainer/HBoxC_Language"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "Language:"
+horizontal_alignment = 1
+
+[node name="OptionButton" type="OptionButton" parent="CenterContainer/Panel/MarginContainer/TabContainer/Game/MarginContainer/VBoxContainer/HBoxC_Language"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+selected = 0
+item_count = 2
+popup/item_0/text = "English"
+popup/item_0/id = 0
+popup/item_1/text = "Japan"
+popup/item_1/id = 1
+
+[node name="HBoxC_HUD" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Game/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/TabContainer/Game/MarginContainer/VBoxContainer/HBoxC_HUD"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "HUD:"
+horizontal_alignment = 1
+
+[node name="OptionButton" type="OptionButton" parent="CenterContainer/Panel/MarginContainer/TabContainer/Game/MarginContainer/VBoxContainer/HBoxC_HUD"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+selected = 0
+item_count = 3
+popup/item_0/text = "Simple"
+popup/item_0/id = 0
+popup/item_1/text = "Detail"
+popup/item_1/id = 1
+popup/item_2/text = "Minimal"
+popup/item_2/id = 2
+
+[node name="Graphic" type="TabBar" parent="CenterContainer/Panel/MarginContainer/TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Graphic"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Graphic/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxC_Window" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Graphic/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/TabContainer/Graphic/MarginContainer/VBoxContainer/HBoxC_Window"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "Window Mode:"
+horizontal_alignment = 1
+
+[node name="OptionButton" type="OptionButton" parent="CenterContainer/Panel/MarginContainer/TabContainer/Graphic/MarginContainer/VBoxContainer/HBoxC_Window"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+selected = 0
+item_count = 3
+popup/item_0/text = "Window"
+popup/item_0/id = 0
+popup/item_1/text = "FullScreen"
+popup/item_1/id = 1
+popup/item_2/text = "Borderless"
+popup/item_2/id = 2
+
+[node name="Audio" type="TabBar" parent="CenterContainer/Panel/MarginContainer/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxC_Forward" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer/HBoxC_Forward"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "Master"
+horizontal_alignment = 1
+
+[node name="HSlider" type="HSlider" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer/HBoxC_Forward"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="HBoxC_Forward2" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer/HBoxC_Forward2"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "SFX"
+horizontal_alignment = 1
+
+[node name="HSlider" type="HSlider" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer/HBoxC_Forward2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="HBoxC_Forward3" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer/HBoxC_Forward3"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "Music"
+horizontal_alignment = 1
+
+[node name="HSlider" type="HSlider" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer/HBoxC_Forward3"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="HBoxC_Forward4" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer/HBoxC_Forward4"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "Menu"
+horizontal_alignment = 1
+
+[node name="HSlider" type="HSlider" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer/HBoxC_Forward4"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="Input" type="TabBar" parent="CenterContainer/Panel/MarginContainer/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxC_Forward" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/HBoxC_Forward"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "W"
+horizontal_alignment = 1
+
+[node name="SplitContainer" type="SplitContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/HBoxC_Forward"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/HBoxC_Forward"]
+layout_mode = 2
+text = " Binding "
+
+[node name="HBoxC_Left" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/HBoxC_Left"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "A"
+horizontal_alignment = 1
+
+[node name="SplitContainer" type="SplitContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/HBoxC_Left"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/HBoxC_Left"]
+layout_mode = 2
+text = " Binding "
+
+[node name="HBoxC_Backward" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/HBoxC_Backward"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "S"
+horizontal_alignment = 1
+
+[node name="SplitContainer" type="SplitContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/HBoxC_Backward"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/HBoxC_Backward"]
+layout_mode = 2
+text = " Binding "
+
+[node name="HBoxC_Right" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/HBoxC_Right"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "D"
+horizontal_alignment = 1
+
+[node name="SplitContainer" type="SplitContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/HBoxC_Right"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/HBoxC_Right"]
+layout_mode = 2
+text = " Binding "
+
+[node name="HBoxC_Jump" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/HBoxC_Jump"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "Jump"
+horizontal_alignment = 1
+
+[node name="SplitContainer" type="SplitContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/HBoxC_Jump"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/HBoxC_Jump"]
+layout_mode = 2
+text = " Binding "
+
+[node name="HBoxC_Crouch" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/HBoxC_Crouch"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "Crouch"
+horizontal_alignment = 1
+
+[node name="SplitContainer" type="SplitContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/HBoxC_Crouch"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/HBoxC_Crouch"]
+layout_mode = 2
+text = " Binding "
+
+[node name="HBoxC_Fire" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/HBoxC_Fire"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "Fire"
+horizontal_alignment = 1
+
+[node name="SplitContainer" type="SplitContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/HBoxC_Fire"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/HBoxC_Fire"]
+layout_mode = 2
+text = " Binding "
+
+[node name="HBoxC_Interact" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/HBoxC_Interact"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "Interact"
+horizontal_alignment = 1
+
+[node name="SplitContainer" type="SplitContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/HBoxC_Interact"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/HBoxC_Interact"]
+layout_mode = 2
+text = " Binding "

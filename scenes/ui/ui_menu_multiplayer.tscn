@@ -54,8 +54,8 @@ max_length = 16
 
 [node name="LineEdit_Port" type="LineEdit" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-text = "1024"
-placeholder_text = "1024"
+text = "8888"
+placeholder_text = "8888"
 alignment = 1
 
 [node name="Label" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]

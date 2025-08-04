@@ -9,7 +9,7 @@ signal server_disconnected
 # https://docs.godotengine.org/en/stable/tutorials/networking/high_level_multiplayer.html
 var IP_ADDRESS = "127.0.0.1"
 var DEFAULT_SERVER_IP = IP_ADDRESS
-var PORT = 3001
+var PORT = 8888
 var MAX_CLIENTS = 4
 
 # This will contain player info for every player,

@@ -15,6 +15,9 @@ properties/2/replication_mode = 1
 properties/3/path = NodePath("Neck:rotation")
 properties/3/spawn = true
 properties/3/replication_mode = 1
+properties/4/path = NodePath(".:index_slot")
+properties/4/spawn = true
+properties/4/replication_mode = 1
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_k4wx6"]
 
@@ -42,5 +45,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.632479, 0)
 [node name="Camera3D" type="Camera3D" parent="Neck"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Neck/Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.442978, -1.6524)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.442978, -0.856974)
 mesh = SubResource("BoxMesh_x8v5m")

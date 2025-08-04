@@ -31,6 +31,8 @@
 	- [x] spawn dummy projectile cube
  - [ ] player
 	- [x] movement
+	- [x] weapon bullet 0
+	- [x] weapon bullet 1
 	- [x] jump
 	- [x] camera
 	- [x] shoot (no damage)
@@ -103,6 +105,18 @@ contact_monitor = true
 max_contacts_reported = 1
 ```
 
+# game logics:
+	
+```
+-Host / Join
+-Load Scene
+-Scene Level
+	-call server for this client or server to add counter
+	-start_game
+
+-Game
+
+```
 
 
 # Notes:
