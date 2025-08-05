@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://bs1sa7praswu7"]
+[gd_scene load_steps=5 format=3 uid="uid://bs1sa7praswu7"]
 
 [ext_resource type="Script" uid="uid://dcbhmdap4anf0" path="res://scenes/ui/ui_menu_lobby.gd" id="1_jj8pd"]
 [ext_resource type="PackedScene" uid="uid://splkh8ooi5es" path="res://scenes/ui/ui_user_message.tscn" id="2_y8prn"]
+[ext_resource type="PackedScene" uid="uid://bs3ljp0c61x7y" path="res://scenes/ui/ui_lobby_player.tscn" id="3_k6pd8"]
+[ext_resource type="PackedScene" uid="uid://djstfyl4t00on" path="res://ui/ui_server_disconnected.tscn" id="4_b5ety"]
 
 [node name="UIMainLobby" type="Control"]
 layout_mode = 3
@@ -107,10 +109,35 @@ layout_mode = 2
 [node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer2/PanelContainer"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer2/PanelContainer/ScrollContainer"]
+[node name="VBoxContainer_Players" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer2/PanelContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
+[node name="UILobbyPlayer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer2/PanelContainer/ScrollContainer/VBoxContainer_Players" instance=ExtResource("3_k6pd8")]
+layout_mode = 2
+
+[node name="UIServerDisconnnect" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="UIServerDCAcceptDialog" type="AcceptDialog" parent="UIServerDisconnnect"]
+initial_position = 2
+size = Vector2i(248, 183)
+borderless = true
+ok_button_text = "Okay"
+
+[node name="Control" parent="UIServerDisconnnect/UIServerDCAcceptDialog" instance=ExtResource("4_b5ety")]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 188.664
+offset_bottom = 90.812
+
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/btn_start" to="." method="_on_btn_start_pressed"]
 [connection signal="text_submitted" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/LineEdit_ChatMessage" to="." method="_on_line_edit_chat_message_text_submitted"]
+[connection signal="confirmed" from="UIServerDisconnnect/UIServerDCAcceptDialog" to="." method="_on_accept_dialog_confirmed"]

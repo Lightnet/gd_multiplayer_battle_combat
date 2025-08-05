@@ -5,7 +5,6 @@ signal player_connected(peer_id, player_info)
 signal player_disconnected(peer_id)
 signal server_disconnected
 
-
 # https://docs.godotengine.org/en/stable/tutorials/networking/high_level_multiplayer.html
 var IP_ADDRESS = "127.0.0.1"
 var DEFAULT_SERVER_IP = IP_ADDRESS
@@ -127,6 +126,10 @@ func player_loaded():
 			#print("scene name",  Global.game_controller.current_3d_scene.name)
 			#var level = Global.game_controller.current_3d_scene.get_node("Level")
 			var level = Global.game_controller.current_3d_scene
+			
+			if not level:
+				print("ERROR NULL NODE3D LEVEL...")
+				return 
 			
 			#print(" Global.game_controller.current_3d_scene",  Global.game_controller.current_3d_scene)
 			#print("level:", level)

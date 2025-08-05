@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://cf07rjb70tou8"]
+[gd_scene load_steps=3 format=3 uid="uid://b3lpx3nl8317w"]
 
-[ext_resource type="Shader" uid="uid://dlv368brio1u0" path="res://shaders/animated_stripes.gdshader" id="1_36rrn"]
+[ext_resource type="Shader" uid="uid://dlv368brio1u0" path="res://shaders/animated_stripes.gdshader" id="1_h4gim"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_i4n7d"]
-shader = ExtResource("1_36rrn")
+shader = ExtResource("1_h4gim")
 shader_parameter/color_gap = Color(0.25, 0.25, 0.25, 0.25)
 shader_parameter/color_stripe = Color(1, 0, 0, 1)
 shader_parameter/divisions = 15.43
@@ -79,7 +79,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0, 0, 1)
-text = "ACCESS DENIED!"
+text = "SERVER ERROR!"
 horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer"]

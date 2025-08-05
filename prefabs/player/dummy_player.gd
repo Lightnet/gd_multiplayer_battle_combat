@@ -173,7 +173,7 @@ func _jump(delta: float) -> Vector3:
 	
 	
 @rpc("call_local") #okay
-func fire_melee(pid:int):
+func fire_melee(_pid:int):
 	print("player melee")
 	#melee_stick.attack()
 	#need to call rpc_id since sync else it call many times
@@ -206,7 +206,7 @@ func fire_projectile(pid:int):
 	
 # Does not work on multiplayer since it object but not recommend to allow which they can inject malice code.  
 #@rpc("any_peer","call_local") #
-func _on_receive_hit(hit_info_data:HitInfoData)->void:
+func _on_receive_hit(_hit_info_data:HitInfoData)->void:
 	print("player name id:", name)
 	#stats_data.health -= amount
 	#print("HEALTH: ", stats_data.health)

@@ -1,5 +1,24 @@
 
 
+# Design:
+	To have two functions to handle network and non network.
+```
+func _on_receive_hit(hit_info_data:HitInfoData)->void:
+	_on_receive_hit_params.rpc_id(get_multiplayer_authority(), "Physical", 10)
+```
+	Class resource is not possible for rpc.
+
+```
+@rpc("any_peer","call_local") #
+func _on_receive_hit_params(_type:String,_amount:float)->void:
+	if _type == "Physical":
+		stats_data.health -= _amount
+		print("HEALTH: ", stats_data.health)
+	pass
+```
+	The reason is that class resource is not possible. Still it still need to use params.
+
+
 # Multiplayer api:
 
 - Custom Binary Serialization

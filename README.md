@@ -13,7 +13,7 @@
  	- [x] join 
 	- [ ] leave game to clean up player entity
 	- [ ] disconnect clean up
- - [ ] glboal
+ - [ ] global
  	- [x] change scene
 	- [x] name generator
 	- [ ] 
@@ -60,13 +60,13 @@
 	- [ ] ban user
 	- [ ] access deined
 	- [ ] 
-# scenes:
+# Scenes:
 - scenes/game_controller_player_test.tscn
 	- single player test
 - scenes/game_controller_host_join.tscn
 	- multiplayer test
 
-# dev console:
+# Dev Console:
  This section is for dev console using the backqute for half life console commands. It use an add on plugin from assets.
 
  This is work in progress to make sure the network server and client are sync.
@@ -96,9 +96,22 @@ func shoot(shooter_pid):
 
 	As well assign the set_multiplayer_authority on the node to handle identity on the network for who in control of the instance or create to node object.
 
-  Note that class resources does not work as become object type in rpc. It can only send parameters not object data.
+  Note that class resources does not work as become object type in rpc. It can only send parameters not object data. Will use round about ways.
 ```
+func _on_receive_hit(hit_info_data:HitInfoData)->void:
+	print("player name id:", name)
+	_on_receive_hit_params.rpc_id(get_multiplayer_authority(), "Physical", 10)
+	pass
+
+@rpc("any_peer","call_local") #
+func _on_receive_hit_params(_type:String,_amount:float)->void:
+	if _type == "Physical":
+		stats_data.health -= _amount
+		print("HEALTH: ", stats_data.health)
+	pass
 ```
+	As long the objects are sync to able to call_local to update variable.
+
 # List:
 - Dictionary 
 - Array
