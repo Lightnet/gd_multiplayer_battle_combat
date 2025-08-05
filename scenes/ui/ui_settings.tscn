@@ -1,4 +1,11 @@
-[gd_scene format=3 uid="uid://cunjac6i6wsa1"]
+[gd_scene load_steps=7 format=3 uid="uid://cunjac6i6wsa1"]
+
+[ext_resource type="Script" uid="uid://bpwxf4cj8qhr8" path="res://scripts/ui/audio_h_slider.gd" id="1_o8lfg"]
+[ext_resource type="Script" uid="uid://cvb2k4rredimo" path="res://scripts/ui/option_btn_window_mode.gd" id="1_omcb3"]
+[ext_resource type="Script" uid="uid://d1kwr0f1ux5vd" path="res://scripts/ui/option_btn_resolution.gd" id="2_1xgxd"]
+[ext_resource type="AudioStream" uid="uid://d22qd84q0vna6" path="res://assets/audio/musics/yesterday by Aventure _ bensound.mp3" id="2_7cgio"]
+[ext_resource type="Script" uid="uid://dtovfgqirqsm6" path="res://scripts/ui/btn_audio_stream_player.gd" id="3_omcb3"]
+[ext_resource type="Script" uid="uid://bh2tnqt7a8rhl" path="res://scripts/ui/btn_player_key_bind.gd" id="4_7cgio"]
 
 [node name="UISettings" type="Control"]
 layout_mode = 3
@@ -136,14 +143,33 @@ horizontal_alignment = 1
 [node name="OptionButton" type="OptionButton" parent="CenterContainer/Panel/MarginContainer/TabContainer/Graphic/MarginContainer/VBoxContainer/HBoxC_Window"]
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
-selected = 0
-item_count = 3
-popup/item_0/text = "Window"
+selected = 1
+item_count = 4
+popup/item_0/text = "Full-Screen"
 popup/item_0/id = 0
-popup/item_1/text = "FullScreen"
+popup/item_1/text = "Window Mode"
 popup/item_1/id = 1
-popup/item_2/text = "Borderless"
+popup/item_2/text = "Borderless Windo"
 popup/item_2/id = 2
+popup/item_3/text = "Borderless Full-Screen"
+popup/item_3/id = 3
+script = ExtResource("1_omcb3")
+
+[node name="HBoxC_Resolution" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Graphic/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/TabContainer/Graphic/MarginContainer/VBoxContainer/HBoxC_Resolution"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "Window Mode:"
+horizontal_alignment = 1
+
+[node name="OptionButton" type="OptionButton" parent="CenterContainer/Panel/MarginContainer/TabContainer/Graphic/MarginContainer/VBoxContainer/HBoxC_Resolution"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+selected = 1
+script = ExtResource("2_1xgxd")
 
 [node name="Audio" type="TabBar" parent="CenterContainer/Panel/MarginContainer/TabContainer"]
 visible = false
@@ -165,73 +191,166 @@ theme_override_constants/margin_bottom = 8
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer"]
 layout_mode = 2
 
-[node name="HBoxC_Forward" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer"]
+[node name="HBoxC_Master_VOL" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer/HBoxC_Forward"]
+[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer/HBoxC_Master_VOL"]
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
 text = "Master"
 horizontal_alignment = 1
 
-[node name="HSlider" type="HSlider" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer/HBoxC_Forward"]
+[node name="HSlider_Master" type="HSlider" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer/HBoxC_Master_VOL"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 max_value = 1.0
 step = 0.01
 value = 1.0
+script = ExtResource("1_o8lfg")
+bus_name = "Master"
 
-[node name="HBoxC_Forward2" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer"]
+[node name="SplitContainer" type="SplitContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer/HBoxC_Master_VOL"]
+custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer/HBoxC_Forward2"]
+[node name="HBoxC_SFX_VOL" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer/HBoxC_SFX_VOL"]
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
 text = "SFX"
 horizontal_alignment = 1
 
-[node name="HSlider" type="HSlider" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer/HBoxC_Forward2"]
+[node name="HSlider_SFX" type="HSlider" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer/HBoxC_SFX_VOL"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 max_value = 1.0
 step = 0.01
 value = 1.0
+script = ExtResource("1_o8lfg")
+bus_name = "sfx"
 
-[node name="HBoxC_Forward3" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer"]
+[node name="SplitContainer" type="SplitContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer/HBoxC_SFX_VOL"]
+custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer/HBoxC_Forward3"]
+[node name="HBoxC_MUSIC_VOL" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer/HBoxC_MUSIC_VOL"]
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
 text = "Music"
 horizontal_alignment = 1
 
-[node name="HSlider" type="HSlider" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer/HBoxC_Forward3"]
+[node name="HSlider_Music" type="HSlider" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer/HBoxC_MUSIC_VOL"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 max_value = 1.0
 step = 0.01
 value = 1.0
+script = ExtResource("1_o8lfg")
+bus_name = "music"
 
-[node name="HBoxC_Forward4" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer"]
+[node name="SplitContainer" type="SplitContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer/HBoxC_MUSIC_VOL"]
+custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer/HBoxC_Forward4"]
+[node name="HBoxC_MENU_VOL" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer/HBoxC_MENU_VOL"]
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
 text = "Menu"
 horizontal_alignment = 1
 
-[node name="HSlider" type="HSlider" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer/HBoxC_Forward4"]
+[node name="HSlider_Menu" type="HSlider" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer/HBoxC_MENU_VOL"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 max_value = 1.0
 step = 0.01
 value = 1.0
+script = ExtResource("1_o8lfg")
+bus_name = "menu"
+
+[node name="SplitContainer" type="SplitContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer/HBoxC_MENU_VOL"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+
+[node name="HBoxC_SFX" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer/HBoxC_SFX"]
+layout_mode = 2
+text = "SFX: "
+
+[node name="btn_SFX_Play" type="Button" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer/HBoxC_SFX"]
+layout_mode = 2
+text = "Play"
+
+[node name="btn_SFX_stop" type="Button" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer/HBoxC_SFX"]
+layout_mode = 2
+text = "Stop"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer/HBoxC_SFX" node_paths=PackedStringArray("btn_play", "btn_stop")]
+stream = ExtResource("2_7cgio")
+bus = &"sfx"
+script = ExtResource("3_omcb3")
+btn_play = NodePath("../btn_SFX_Play")
+btn_stop = NodePath("../btn_SFX_stop")
+
+[node name="HBoxC_MUSIC" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer/HBoxC_MUSIC"]
+layout_mode = 2
+text = "Music: "
+
+[node name="btn_Music_Play" type="Button" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer/HBoxC_MUSIC"]
+layout_mode = 2
+text = "Play"
+
+[node name="btn_Music_stop" type="Button" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer/HBoxC_MUSIC"]
+layout_mode = 2
+text = "Stop"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer/HBoxC_MUSIC" node_paths=PackedStringArray("btn_play", "btn_stop")]
+stream = ExtResource("2_7cgio")
+bus = &"music"
+script = ExtResource("3_omcb3")
+btn_play = NodePath("../btn_Music_Play")
+btn_stop = NodePath("../btn_Music_stop")
+
+[node name="HBoxC_MENU" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer/HBoxC_MENU"]
+layout_mode = 2
+text = "Menu: "
+
+[node name="btn_Music_Play" type="Button" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer/HBoxC_MENU"]
+layout_mode = 2
+text = "Play"
+
+[node name="btn_Music_stop" type="Button" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer/HBoxC_MENU"]
+layout_mode = 2
+text = "Stop"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Audio/MarginContainer/VBoxContainer/HBoxC_MENU" node_paths=PackedStringArray("btn_play", "btn_stop")]
+stream = ExtResource("2_7cgio")
+bus = &"menu"
+script = ExtResource("3_omcb3")
+btn_play = NodePath("../btn_Music_Play")
+btn_stop = NodePath("../btn_Music_stop")
 
 [node name="Input" type="TabBar" parent="CenterContainer/Panel/MarginContainer/TabContainer"]
 visible = false
@@ -253,138 +372,280 @@ theme_override_constants/margin_bottom = 8
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer"]
 layout_mode = 2
 
-[node name="HBoxC_Forward" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer"]
+[node name="PC_Forward" type="PanelContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/HBoxC_Forward"]
+[node name="HBoxC" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/PC_Forward"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/PC_Forward/HBoxC"]
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
-text = "W"
+text = "Forward"
 horizontal_alignment = 1
 
-[node name="SplitContainer" type="SplitContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/HBoxC_Forward"]
+[node name="SplitContainer" type="SplitContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/PC_Forward/HBoxC"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Button" type="Button" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/HBoxC_Forward"]
-layout_mode = 2
-text = " Binding "
-
-[node name="HBoxC_Left" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/HBoxC_Left"]
+[node name="Button" type="Button" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/PC_Forward/HBoxC"]
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
-text = "A"
+text = " Binding "
+script = ExtResource("4_7cgio")
+
+[node name="SplitContainer2" type="SplitContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/PC_Forward/HBoxC"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+
+[node name="PC_Backward" type="PanelContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxC" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/PC_Backward"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/PC_Backward/HBoxC"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "Backward"
 horizontal_alignment = 1
 
-[node name="SplitContainer" type="SplitContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/HBoxC_Left"]
+[node name="SplitContainer" type="SplitContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/PC_Backward/HBoxC"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Button" type="Button" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/HBoxC_Left"]
-layout_mode = 2
-text = " Binding "
-
-[node name="HBoxC_Backward" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/HBoxC_Backward"]
+[node name="Button" type="Button" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/PC_Backward/HBoxC"]
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
-text = "S"
+text = " Binding "
+script = ExtResource("4_7cgio")
+action_name = "backward"
+action_label = "backward"
+
+[node name="SplitContainer2" type="SplitContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/PC_Backward/HBoxC"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+
+[node name="PC_Right" type="PanelContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxC" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/PC_Right"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/PC_Right/HBoxC"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "Right"
 horizontal_alignment = 1
 
-[node name="SplitContainer" type="SplitContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/HBoxC_Backward"]
+[node name="SplitContainer" type="SplitContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/PC_Right/HBoxC"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Button" type="Button" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/HBoxC_Backward"]
-layout_mode = 2
-text = " Binding "
-
-[node name="HBoxC_Right" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/HBoxC_Right"]
+[node name="Button" type="Button" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/PC_Right/HBoxC"]
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
-text = "D"
+text = " Binding "
+script = ExtResource("4_7cgio")
+action_name = "right"
+action_label = "right"
+
+[node name="SplitContainer2" type="SplitContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/PC_Right/HBoxC"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+
+[node name="PC_Left" type="PanelContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxC" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/PC_Left"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/PC_Left/HBoxC"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "Left"
 horizontal_alignment = 1
 
-[node name="SplitContainer" type="SplitContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/HBoxC_Right"]
+[node name="SplitContainer" type="SplitContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/PC_Left/HBoxC"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Button" type="Button" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/HBoxC_Right"]
+[node name="Button" type="Button" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/PC_Left/HBoxC"]
+custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
 text = " Binding "
+script = ExtResource("4_7cgio")
+action_name = "left"
+action_label = "left"
 
-[node name="HBoxC_Jump" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer"]
+[node name="SplitContainer2" type="SplitContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/PC_Left/HBoxC"]
+custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/HBoxC_Jump"]
+[node name="PC_Jump" type="PanelContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxC" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/PC_Jump"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/PC_Jump/HBoxC"]
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
 text = "Jump"
 horizontal_alignment = 1
 
-[node name="SplitContainer" type="SplitContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/HBoxC_Jump"]
+[node name="SplitContainer" type="SplitContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/PC_Jump/HBoxC"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Button" type="Button" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/HBoxC_Jump"]
+[node name="Button" type="Button" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/PC_Jump/HBoxC"]
+custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
 text = " Binding "
+script = ExtResource("4_7cgio")
+action_name = "jump"
+action_label = "jump"
 
-[node name="HBoxC_Crouch" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer"]
+[node name="SplitContainer2" type="SplitContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/PC_Jump/HBoxC"]
+custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/HBoxC_Crouch"]
+[node name="PC_Sprint" type="PanelContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxC" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/PC_Sprint"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/PC_Sprint/HBoxC"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "Sprint"
+horizontal_alignment = 1
+
+[node name="SplitContainer" type="SplitContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/PC_Sprint/HBoxC"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/PC_Sprint/HBoxC"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = " Binding "
+script = ExtResource("4_7cgio")
+action_name = "sprint"
+action_label = "sprint"
+
+[node name="SplitContainer2" type="SplitContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/PC_Sprint/HBoxC"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+
+[node name="PC_Crouch" type="PanelContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxC" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/PC_Crouch"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/PC_Crouch/HBoxC"]
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
 text = "Crouch"
 horizontal_alignment = 1
 
-[node name="SplitContainer" type="SplitContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/HBoxC_Crouch"]
+[node name="SplitContainer" type="SplitContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/PC_Crouch/HBoxC"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Button" type="Button" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/HBoxC_Crouch"]
-layout_mode = 2
-text = " Binding "
-
-[node name="HBoxC_Fire" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/HBoxC_Fire"]
+[node name="Button" type="Button" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/PC_Crouch/HBoxC"]
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
-text = "Fire"
+text = " Binding "
+script = ExtResource("4_7cgio")
+action_name = "crouch"
+action_label = "crouch"
+
+[node name="SplitContainer2" type="SplitContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/PC_Crouch/HBoxC"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+
+[node name="PC_Fire" type="PanelContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxC" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/PC_Fire"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/PC_Fire/HBoxC"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "Primary Fire"
 horizontal_alignment = 1
 
-[node name="SplitContainer" type="SplitContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/HBoxC_Fire"]
+[node name="SplitContainer" type="SplitContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/PC_Fire/HBoxC"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Button" type="Button" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/HBoxC_Fire"]
+[node name="Button" type="Button" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/PC_Fire/HBoxC"]
+custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
 text = " Binding "
+script = ExtResource("4_7cgio")
+action_name = "primaryfire"
+action_label = "primaryfire"
 
-[node name="HBoxC_Interact" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer"]
+[node name="SplitContainer2" type="SplitContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/PC_Fire/HBoxC"]
+custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/HBoxC_Interact"]
+[node name="PC_Interact" type="PanelContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxC" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/PC_Interact"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/PC_Interact/HBoxC"]
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
 text = "Interact"
 horizontal_alignment = 1
 
-[node name="SplitContainer" type="SplitContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/HBoxC_Interact"]
+[node name="SplitContainer" type="SplitContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/PC_Interact/HBoxC"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Button" type="Button" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/HBoxC_Interact"]
+[node name="Button" type="Button" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/PC_Interact/HBoxC"]
+custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
 text = " Binding "
+script = ExtResource("4_7cgio")
+action_name = "interact"
+action_label = "interact"
+
+[node name="SplitContainer2" type="SplitContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/PC_Interact/HBoxC"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+
+[node name="PC_Throw" type="PanelContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxC" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/PC_Throw"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/PC_Throw/HBoxC"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "Throw"
+horizontal_alignment = 1
+
+[node name="SplitContainer" type="SplitContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/PC_Throw/HBoxC"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/PC_Throw/HBoxC"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = " Binding "
+script = ExtResource("4_7cgio")
+action_name = "throw"
+action_label = "throw"
+
+[node name="SplitContainer2" type="SplitContainer" parent="CenterContainer/Panel/MarginContainer/TabContainer/Input/MarginContainer/VBoxContainer/PC_Throw/HBoxC"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://d22qd84q0vna6"
+path="res://.godot/imported/yesterday by Aventure _ bensound.mp3-3c4434a785bbb193d91cd478489758da.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/musics/yesterday by Aventure _ bensound.mp3"
+dest_files=["res://.godot/imported/yesterday by Aventure _ bensound.mp3-3c4434a785bbb193d91cd478489758da.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

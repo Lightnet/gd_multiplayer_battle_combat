@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://2tk00k8f0e3f"]
+
+[ext_resource type="Texture2D" uid="uid://bf5wgfggcej5s" path="res://icon.svg" id="1_kamk6"]
+[ext_resource type="Script" uid="uid://dy47f0sicbwd3" path="res://ui/ui_notify_message.gd" id="1_tjlib"]
+
+[node name="UINotifyMessage" type="PanelContainer"]
+script = ExtResource("1_tjlib")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_kamk6")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "GUEST "
+
+[node name="SplitContainer" type="SplitContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="btn_close" type="Button" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "x"
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[connection signal="pressed" from="MarginContainer/HBoxContainer/btn_close" to="." method="_on_btn_close_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

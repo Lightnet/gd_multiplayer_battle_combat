@@ -45,11 +45,21 @@
 	- [x] lobby
 	- [ ] game menu
 	- [ ] settings
+		- [x] volume
+		- [x] window mode
+		- [x] resolution
+		- [x] game config
+		- [x] game input
  - [ ] config
 	- [ ] save
 	- [ ] load
  - [ ] dev console 
-
+ - [ ] notify
+	- [ ] notify message
+ - [ ] dialog
+	- [ ] ban user
+	- [ ] access deined
+	- [ ] 
 # scenes:
 - scenes/game_controller_player_test.tscn
 	- single player test
@@ -96,6 +106,7 @@ func shoot(shooter_pid):
 
 ## notes:
  - Allowing direct transmission of arbitrary objects could pose security risks, as it might enable remote code injection or other vulnerabilities if not handled carefully.
+ - Animation sync need to config as different from server and client fallback or go to default pose animation to zero.
 
 # Collision:
 	
