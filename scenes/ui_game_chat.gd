@@ -2,6 +2,7 @@ extends Control
 
 const UI_MESSAGE = preload("res://scenes/ui/ui_message.tscn")
 @onready var ui_messages: VBoxContainer = $PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer
+@onready var scroll_container: ScrollContainer = $PanelContainer/MarginContainer/VBoxContainer/ScrollContainer
 
 func _ready() -> void:
 	clear_message()
@@ -27,4 +28,7 @@ func sent_message(msg:String)->void:
 		if idx == peer_id:
 			player_name = GameNetwork.players[idx]["name"]
 	message.set_user_message(player_name,msg)
+	# Scroll to the bottom after adding the new message
+	await get_tree().create_timer(0.01).timeout  # Small delay to ensure UI is updated
+	scroll_container.scroll_vertical = scroll_container.get_v_scroll_bar().max_value
 	pass

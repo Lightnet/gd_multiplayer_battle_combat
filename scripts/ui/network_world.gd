@@ -3,11 +3,11 @@ extends Node3D
 const DUMMY_PLAYER = preload("res://prefabs/player/dummy_player.tscn")
 @onready var spawn_point: Node3D = $SpawnPoint
 @onready var label_network_type: Label = $CanvasLayer/Control/Label_NetworkType
+@onready var label_player_name: Label = $CanvasLayer/Control/Label_PlayerName
 
 func _enter_tree() -> void:
 	#GameNetwork.player_connected.connect(event_add_player)
 	Console.add_command("spawnplayers", cmd_spawn_players)
-	
 	GameNetwork.player_disconnected.connect(_on_disconnect_peer)
 	pass
 
@@ -21,7 +21,12 @@ func _ready() -> void:
 	#print("is_server: ",multiplayer.is_server())
 	GameNetwork.player_loaded.rpc_id(1) # Tell the server that this peer has loaded.
 	label_network_type.text = GameNetwork.network_type
-	pass 
+	setup_player_name()
+	#pass
+
+func setup_player_name():
+	label_player_name.text = GameNetwork.player_info["name"]
+	pass
 
 # Called only on the server.
 #@rpc("any_peer", "reliable")
