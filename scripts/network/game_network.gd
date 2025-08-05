@@ -79,7 +79,7 @@ func _on_player_connected(id):
 	
 func _on_player_disconnected(id):
 	players.erase(id)
-	player_disconnected.emit(id)	
+	player_disconnected.emit(id)
 	
 func _on_connected_ok():
 	var peer_id = multiplayer.get_unique_id()

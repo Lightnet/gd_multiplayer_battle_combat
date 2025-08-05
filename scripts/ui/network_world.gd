@@ -7,6 +7,8 @@ const DUMMY_PLAYER = preload("res://prefabs/player/dummy_player.tscn")
 func _enter_tree() -> void:
 	#GameNetwork.player_connected.connect(event_add_player)
 	Console.add_command("spawnplayers", cmd_spawn_players)
+	
+	GameNetwork.player_disconnected.connect(_on_disconnect_peer)
 	pass
 
 func _exit_tree() -> void:
@@ -79,3 +81,18 @@ func set_player_position(peer_id:int, pos:Vector3):
 func cmd_spawn_players():
 	start_game.rpc()
 	pass
+
+
+func _on_disconnect_peer(peer_id):
+	del_player(peer_id)
+	pass
+	
+func del_player(id):
+	rpc("_del_player",id)
+	
+@rpc("any_peer","call_local")
+func _del_player(id):
+	var player  = get_node_or_null(str(id))
+	print("del player", player)
+	if player:
+		player.queue_free()

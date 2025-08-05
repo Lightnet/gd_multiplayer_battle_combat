@@ -92,9 +92,7 @@ func shoot(shooter_pid):
 	await get_tree().create_timer(0.01).timeout #wait for sync
 	bullet.transform = $GunCOntainer/GunSprite/Muzzle.global_transform
 ```
-	For reason for await is need to wait for node tree to be added and update the data to scene to other peers else error.
-
-	As well assign the set_multiplayer_authority on the node to handle identity on the network for who in control of the instance or create to node object.
+  For reason for await is need to wait for node tree to be added and update the data to scene to other peers else error. As well assign the set_multiplayer_authority on the node to handle identity on the network for who in control of the instance or create to node object.
 
   Note that class resources does not work as become object type in rpc. It can only send parameters not object data. Will use round about ways.
 ```
@@ -110,7 +108,7 @@ func _on_receive_hit_params(_type:String,_amount:float)->void:
 		print("HEALTH: ", stats_data.health)
 	pass
 ```
-	As long the objects are sync to able to call_local to update variable.
+  As long the objects are sync to able to call_local to update variable.
 
 # List:
 - Dictionary 

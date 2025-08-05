@@ -11,7 +11,6 @@ const UI_LOBBY_PLAYER = preload("res://scenes/ui/ui_lobby_player.tscn")
 @onready var btn_start: Button = $PanelContainer/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/btn_start
 @onready var ui_server_dc_accept_dialog: AcceptDialog = $UIServerDisconnnect/UIServerDCAcceptDialog
 
-
 @onready var v_box_container_players: VBoxContainer = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer2/PanelContainer/ScrollContainer/VBoxContainer_Players
 
 @export var world_3d_scene:String
@@ -28,24 +27,40 @@ func _ready() -> void:
 	clear_messages()
 	clear_lobby_players()
 	GameNetwork.player_connected.connect(_on_connect_player)
-	GameNetwork.server_disconnected.connect(_on_disconnect)
+	GameNetwork.server_disconnected.connect(_on_disconnect) #server disconnect to call clients
+	GameNetwork.player_disconnected.connect(_on_player_disconnected)
 	#pass
 
-func _on_connect_player(_peer_id, player_info):
+func _on_connect_player(peer_id, player_info):
 	var lobby_player = UI_LOBBY_PLAYER.instantiate()
 	
 	v_box_container_players.add_child(lobby_player)
 	print("name: ", player_info["name"])
-	lobby_player.set_player_name(player_info["name"])
+	lobby_player.set_player_name(player_info["name"], peer_id)
 	pass
 
 func _exit_tree() -> void:
 	GameNetwork.player_connected.disconnect(_on_connect_player)
+	GameNetwork.server_disconnected.disconnect(_on_disconnect)
+	GameNetwork.player_disconnected.disconnect(_on_player_disconnected)
 	pass
 
 func _on_disconnect()->void:
 	print("server disconnected")
 	ui_server_dc_accept_dialog.show()
+	pass
+
+func _on_player_disconnected(peer_id:int)->void:
+	# v_box_container_players.add_child(lobby_player)
+	#var player_name:String = ""
+	#for player_index in GameNetwork.players:
+		#if peer_id == player_index:
+			#player_name = GameNetwork.players[peer_id]["name"]
+	for node_player in v_box_container_players.get_children():
+		if node_player.player_id == peer_id:
+			node_player.queue_free()
+			break
+		pass
 	pass
 
 func clear_lobby_players()->void:
