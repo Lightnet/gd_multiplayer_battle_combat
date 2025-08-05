@@ -81,6 +81,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	
 func _input(event):
 	if not is_multiplayer_authority(): return
+	if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
+		return
 	if event is InputEventMouseMotion:
 		#print("mo?")
 		look_dir = event.relative * 0.001
@@ -113,6 +115,8 @@ func set_slot_idx(idx:int):
 
 func _physics_process(delta):
 	if not is_multiplayer_authority(): return
+	if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
+		return
 	#global_position = spawn_position
 	if mouse_captured: _handle_joypad_camera_rotation(delta)
 	velocity = _walk(delta) + _gravity(delta) + _jump(delta)
@@ -170,7 +174,6 @@ func _jump(delta: float) -> Vector3:
 		return jump_vel
 	jump_vel = Vector3.ZERO if is_on_floor() else jump_vel.move_toward(Vector3.ZERO, gravity * delta)
 	return jump_vel
-	
 	
 @rpc("call_local") #okay
 func fire_melee(_pid:int):
