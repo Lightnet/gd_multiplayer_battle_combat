@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://obju20n54n4q"]
+[gd_scene load_steps=15 format=3 uid="uid://obju20n54n4q"]
 
 [ext_resource type="Texture2D" uid="uid://x1b7vuk5ljq5" path="res://addons/kenney_prototype_textures/dark/texture_01.png" id="1_sxvvi"]
 [ext_resource type="Script" uid="uid://dk3kiml8jf427" path="res://scripts/ui/network_world.gd" id="1_v7jeb"]
@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://tti8il6bxm21" path="res://addons/kenney_prototype_textures/purple/texture_02.png" id="4_kxbxg"]
 [ext_resource type="Script" uid="uid://dsuiviut0pevj" path="res://scenes/ui_game_chat.gd" id="5_yvmxy"]
 [ext_resource type="PackedScene" uid="uid://b76sn23nf11kw" path="res://scenes/ui/ui_message.tscn" id="6_aapmh"]
+[ext_resource type="Script" uid="uid://dt3ktr7a7qefm" path="res://scenes/ui/ui_game_menu.gd" id="7_aapmh"]
+[ext_resource type="PackedScene" uid="uid://dver0lifwtuu3" path="res://scenes/ui/ui_settings.tscn" id="8_n4jqt"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4xowi"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -131,5 +133,40 @@ layout_mode = 2
 [node name="LineEdit" type="LineEdit" parent="CanvasLayer/UIChat/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Test"
+
+[node name="UIGameMenu" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("7_aapmh")
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/UIGameMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/UIGameMenu/CenterContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UIGameMenu/CenterContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UIGameMenu/CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/UIGameMenu/CenterContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = " Quit "
+
+[node name="UISettings" parent="CanvasLayer/UIGameMenu/CenterContainer/PanelContainer/VBoxContainer" instance=ExtResource("8_n4jqt")]
+layout_mode = 2
 
 [connection signal="text_submitted" from="CanvasLayer/UIChat/PanelContainer/MarginContainer/VBoxContainer/LineEdit" to="CanvasLayer/UIChat" method="_on_line_edit_text_submitted"]

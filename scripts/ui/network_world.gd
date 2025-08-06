@@ -87,7 +87,6 @@ func cmd_spawn_players():
 	start_game.rpc()
 	pass
 
-
 func _on_disconnect_peer(peer_id):
 	del_player(peer_id)
 	pass

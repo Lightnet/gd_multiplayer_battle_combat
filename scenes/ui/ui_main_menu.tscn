@@ -47,3 +47,4 @@ next_gui = "res://scenes/ui/ui_menu_multiplayer.tscn"
 layout_mode = 2
 text = "Settings"
 script = ExtResource("1_857qd")
+next_gui = "res://scenes/ui/ui_main_settings.tscn"

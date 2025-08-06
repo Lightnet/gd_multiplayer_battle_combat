@@ -60,6 +60,16 @@
 	- [ ] ban user
 	- [ ] access deined
 	- [ ] 
+# Controls:
+- W,A,S,D = movement
+- Mouse Move = Camera Rotate
+- Escape = toggle capture screen
+```
+- ` = Dev Console
+```
+- F1 = Game Menu
+- ...
+
 # Scenes:
 - scenes/game_controller_player_test.tscn
 	- single player test
