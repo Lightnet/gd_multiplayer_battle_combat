@@ -10,13 +10,13 @@ func _ready() -> void:
 		btn_stop.pressed.connect(stop_audio)
 	pass
 
-func _process(delta: float) -> void:
-	pass
+#func _process(delta: float) -> void:
+	#pass
 
 func play_audio():
 	play()
-	pass
+	#pass
 	
 func stop_audio():
 	stop()
-	pass
+	#pass

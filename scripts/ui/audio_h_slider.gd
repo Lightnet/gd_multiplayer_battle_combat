@@ -17,17 +17,17 @@ func _ready() -> void:
 	
 	pass
 
-func _on_value_changed(value:float):
+func _on_value_changed(_value:float):
 	
 	if spin_box:
-		spin_box.value = value
+		spin_box.value = _value
 		
 	AudioServer.set_bus_volume_db(
 		bus_index,
-		linear_to_db(value)
+		linear_to_db(_value)
 	)
-	print(bus_name, ":",str(value))
+	#print(bus_name, ":",str(_value))
 	if not bus_name.is_empty():
-		GameData.set_name_volume(bus_name, value)
+		GameData.set_name_volume(bus_name, _value)
 	
 	pass

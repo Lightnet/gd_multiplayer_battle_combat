@@ -30,5 +30,5 @@ func sent_message(msg:String)->void:
 	message.set_user_message(player_name,msg)
 	# Scroll to the bottom after adding the new message
 	await get_tree().create_timer(0.01).timeout  # Small delay to ensure UI is updated
-	scroll_container.scroll_vertical = scroll_container.get_v_scroll_bar().max_value
+	scroll_container.scroll_vertical = scroll_container.get_v_scroll_bar().max_value as int
 	pass

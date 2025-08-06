@@ -94,7 +94,10 @@ func _input(event):
 			fire_projectile.rpc(multiplayer.get_unique_id())
 		if index_slot == 2:
 			fire_melee.rpc(multiplayer.get_unique_id())
-			pass
+			#melee_stick.visible = true
+		#else:
+			#melee_stick.visible = false
+			#pass
 		#pass
 	if Input.is_action_just_pressed("slot1"):
 		set_slot_idx.rpc_id(get_multiplayer_authority(), 0)
@@ -111,6 +114,10 @@ func _input(event):
 func set_slot_idx(idx:int):
 	print("Player ID:", get_multiplayer_authority(), " Slot: ", idx)
 	index_slot = idx
+	if index_slot == 2:
+		melee_stick.visible = true
+	else:
+		melee_stick.visible = false
 	#pass
 
 func _physics_process(delta):

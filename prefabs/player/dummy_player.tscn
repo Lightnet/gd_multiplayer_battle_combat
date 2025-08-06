@@ -51,3 +51,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.385877, -0.442978, -0.85697
 mesh = SubResource("BoxMesh_x8v5m")
 
 [node name="melee_stick" parent="Neck/Camera3D/HandRight" instance=ExtResource("2_f6mip")]
+visible = false
