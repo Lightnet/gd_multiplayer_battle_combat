@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://obju20n54n4q"]
+[gd_scene load_steps=16 format=3 uid="uid://obju20n54n4q"]
 
 [ext_resource type="Texture2D" uid="uid://x1b7vuk5ljq5" path="res://addons/kenney_prototype_textures/dark/texture_01.png" id="1_sxvvi"]
 [ext_resource type="Script" uid="uid://dk3kiml8jf427" path="res://scripts/ui/network_world.gd" id="1_v7jeb"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://b76sn23nf11kw" path="res://scenes/ui/ui_message.tscn" id="6_aapmh"]
 [ext_resource type="Script" uid="uid://dt3ktr7a7qefm" path="res://scenes/ui/ui_game_menu.gd" id="7_aapmh"]
 [ext_resource type="PackedScene" uid="uid://dver0lifwtuu3" path="res://scenes/ui/ui_settings.tscn" id="8_n4jqt"]
+[ext_resource type="PackedScene" uid="uid://djstfyl4t00on" path="res://ui/ui_server_disconnected.tscn" id="9_8q2ku"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4xowi"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -78,20 +79,50 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 2
 
-[node name="Label_NetworkType" type="Label" parent="CanvasLayer/Control"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control"]
 layout_mode = 0
-offset_left = 6.0
-offset_right = 173.0
-offset_bottom = 23.0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Network:"
+
+[node name="Label_NetworkType" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
 text = "Network Type: Server"
 
-[node name="Label_PlayerName" type="Label" parent="CanvasLayer/Control"]
-layout_mode = 0
-offset_left = 6.0
-offset_top = 20.0
-offset_right = 105.0
-offset_bottom = 43.0
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Player:"
+
+[node name="Label_PlayerName" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
 text = "Player Name"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "Health:"
+
+[node name="Label_Health" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "00"
 
 [node name="UIChat" type="Control" parent="CanvasLayer"]
 layout_mode = 3
@@ -169,5 +200,18 @@ text = " Quit "
 
 [node name="UISettings" parent="CanvasLayer/UIGameMenu/CenterContainer/PanelContainer/VBoxContainer" instance=ExtResource("8_n4jqt")]
 layout_mode = 2
+
+[node name="UIServerDCAcceptDialog" type="AcceptDialog" parent="CanvasLayer"]
+auto_translate_mode = 1
+initial_position = 2
+size = Vector2i(248, 183)
+borderless = true
+ok_button_text = "Okay"
+
+[node name="Control" parent="CanvasLayer/UIServerDCAcceptDialog" instance=ExtResource("9_8q2ku")]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 188.664
+offset_bottom = 90.812
 
 [connection signal="text_submitted" from="CanvasLayer/UIChat/PanelContainer/MarginContainer/VBoxContainer/LineEdit" to="CanvasLayer/UIChat" method="_on_line_edit_text_submitted"]

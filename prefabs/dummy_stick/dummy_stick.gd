@@ -13,7 +13,8 @@ func attack()->void:
 	print("play attack animation", animation_player)
 	print(" animation is_playing: ", animation_player.is_playing())
 	#animation_player.play("attack")
-	if not animation_player.is_playing():
+	#if not animation_player.is_playing():
+	if animation_player.current_animation != "attack":
 		is_collision_enabled = true # Enable collision at animation start
 		bodies.clear() # Clear the bodies array at the start of the attack
 		animation_player.play("attack")

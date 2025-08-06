@@ -59,6 +59,7 @@ func _ready():
 	#print("is_multiplayer_authority():", is_multiplayer_authority())
 	camera.current = true
 	capture_mouse()
+	set_ui_health()
 	#if spawn_position:
 		#await get_tree().create_timer(0.5).timeout
 		#print("name:",name,"spawn_position: ", spawn_position)
@@ -232,9 +233,17 @@ func _on_receive_hit(_hit_info_data:HitInfoData)->void:
 func _on_receive_hit_params(_type:String,_amount:float)->void:
 	if _type == "Physical":
 		stats_data.health -= _amount
-		print("HEALTH: ", stats_data.health)
+		set_ui_health()
 	pass
 	
+func set_ui_health():
+	var node_level = Global.game_controller.current_3d_scene
+	if node_level:
+		if node_level.has_method("set_health"):
+			node_level.set_health(stats_data.health)
+	print("HEALTH: ", stats_data.health)
+	pass
+
 # multiplayer for json
 @rpc("any_peer","call_local") # 
 func _on_receive_hit_json(_data:String)->void:

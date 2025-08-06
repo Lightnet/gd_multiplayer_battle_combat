@@ -2,13 +2,17 @@ extends Node3D
 
 const DUMMY_PLAYER = preload("res://prefabs/player/dummy_player.tscn")
 @onready var spawn_point: Node3D = $SpawnPoint
-@onready var label_network_type: Label = $CanvasLayer/Control/Label_NetworkType
-@onready var label_player_name: Label = $CanvasLayer/Control/Label_PlayerName
+@onready var label_network_type: Label = $CanvasLayer/Control/MarginContainer/VBoxContainer/HBoxContainer/Label_NetworkType
+@onready var label_player_name: Label = $CanvasLayer/Control/MarginContainer/VBoxContainer/HBoxContainer2/Label_PlayerName
+@onready var label_health: Label = $CanvasLayer/Control/MarginContainer/VBoxContainer/HBoxContainer3/Label_Health
+
+@onready var ui_server_dc_accept_dialog: AcceptDialog = $CanvasLayer/UIServerDCAcceptDialog
 
 func _enter_tree() -> void:
 	#GameNetwork.player_connected.connect(event_add_player)
 	Console.add_command("spawnplayers", cmd_spawn_players)
 	GameNetwork.player_disconnected.connect(_on_disconnect_peer)
+	GameNetwork.server_disconnected.connect(_on_server_disconnect)
 	pass
 
 func _exit_tree() -> void:
@@ -23,6 +27,10 @@ func _ready() -> void:
 	label_network_type.text = GameNetwork.network_type
 	setup_player_name()
 	#pass
+
+func _on_server_disconnect():
+	ui_server_dc_accept_dialog.show()
+	pass
 
 func setup_player_name():
 	label_player_name.text = GameNetwork.player_info["name"]
@@ -55,7 +63,8 @@ func start_game():
 
 #@rpc("any_peer","call_local")
 #@rpc("any_peer", "call_local", "reliable")
-@rpc("call_local")
+#@rpc("call_local")
+@rpc("any_peer","call_local")
 func add_player(peer_id = 1):
 	
 	if has_node(str(peer_id)):
@@ -100,3 +109,7 @@ func _del_player(id):
 	print("del player", player)
 	if player:
 		player.queue_free()
+
+func set_health(_health:float):
+	label_health.text = str(_health)
+	pass

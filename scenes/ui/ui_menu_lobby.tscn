@@ -98,6 +98,7 @@ layout_mode = 2
 
 [node name="LineEdit_ChatMessage" type="LineEdit" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
+placeholder_text = "Type Message Here!"
 
 [node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2

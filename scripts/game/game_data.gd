@@ -1,6 +1,6 @@
 extends Node
 
-signal update_player_info(_player_data:PlayerData)
+#signal update_player_info(_player_data:PlayerData)
 
 const CONFIG_PATH = "user://gameconfig.tres"
 var player_data_slots_path = "user://player_slots/"
@@ -12,12 +12,9 @@ func _ready() -> void:
 	if config:
 		game_config = config
 	load_audio_volume()
-	
 	check_player_inputs_exist()
 	load_player_input_keybinds()
-	
-	pass
-
+	#pass
 
 #check if dir exist else create dir
 func check_name_folder(_name):
@@ -28,7 +25,7 @@ func check_name_folder(_name):
 	else:
 		dir.make_dir(_name)
 		#print("researchs create")
-	pass
+	#pass
 
 # Create and save default config if it doesn't exist
 static func get_config() -> GameConfig:
