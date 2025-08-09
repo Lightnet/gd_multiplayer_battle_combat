@@ -2,6 +2,7 @@ extends Node
 
 # These signals can be connected to by a UI lobby scene or the game scene.
 signal player_connected(peer_id, player_info)
+signal player_failed_connected
 signal player_disconnected(peer_id)
 signal server_disconnected
 
@@ -86,10 +87,14 @@ func _on_connected_ok():
 	print("peer_id: ", peer_id)
 	players[peer_id] = player_info
 	player_connected.emit(peer_id, player_info)
+	Global.hide_connection_status()
 
 func _on_connected_fail():
 	print("Connect FAIL!")
+	multiplayer.multiplayer_peer.close()
 	multiplayer.multiplayer_peer = null
+	Global.hide_connection_status()
+	player_failed_connected.emit()
 	
 func _on_server_disconnected():
 	multiplayer.multiplayer_peer = null

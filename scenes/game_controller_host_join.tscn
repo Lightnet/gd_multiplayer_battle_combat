@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://q5e3u2qxj1xs"]
+[gd_scene load_steps=4 format=3 uid="uid://q5e3u2qxj1xs"]
 
 [ext_resource type="Script" uid="uid://cw6c22srufran" path="res://scripts/game_controller.gd" id="1_ms3q2"]
 [ext_resource type="PackedScene" uid="uid://bkujnx1vul2fh" path="res://scenes/ui/ui_menu_multiplayer.tscn" id="2_ms3q2"]
+[ext_resource type="Script" uid="uid://dyyxqowp70fdb" path="res://scenes/ui_connection_status.gd" id="3_cqtow"]
 
 [node name="GameController" type="Node" node_paths=PackedStringArray("world_3d", "world_2d", "gui", "current_gui_scene")]
 script = ExtResource("1_ms3q2")
@@ -21,3 +22,62 @@ spawn_path = NodePath("..")
 [node name="GUI" type="CanvasLayer" parent="."]
 
 [node name="UIMenuMultiplayer" parent="GUI" instance=ExtResource("2_ms3q2")]
+
+[node name="UIConnectionStatus" type="Control" parent="GUI" groups=["connectionstatus"]]
+visible = false
+z_index = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_cqtow")
+
+[node name="ColorRect" type="ColorRect" parent="GUI/UIConnectionStatus"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="TextureRect" type="TextureRect" parent="GUI/UIConnectionStatus"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="GUI/UIConnectionStatus"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/UIConnectionStatus/CenterContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="GUI/UIConnectionStatus/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Connection Status"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GUI/UIConnectionStatus/CenterContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="GUI/UIConnectionStatus/CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Time Out (+30 secs):"
+
+[node name="Label_TimeOut" type="Label" parent="GUI/UIConnectionStatus/CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "0"
+
+[connection signal="visibility_changed" from="GUI/UIConnectionStatus" to="GUI/UIConnectionStatus" method="_on_visibility_changed"]

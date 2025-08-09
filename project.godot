@@ -28,6 +28,10 @@ GameNetwork="*res://scripts/network/game_network.gd"
 
 enabled=PackedStringArray("res://addons/console/plugin.cfg")
 
+[global_group]
+
+connectionstatus=""
+
 [input]
 
 forward={

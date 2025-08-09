@@ -21,11 +21,10 @@ func _on_btn_host_pressed() -> void:
 		#print("Port:", port)
 		GameNetwork.IP_ADDRESS = address
 		GameNetwork.PORT = port.to_int()
-		
 		GameNetwork.player_info["name"] = line_edit_player_name.text
 		GameNetwork._init_server()
 		Global.game_controller.change_gui_scene(ui_scene)
-	pass
+	#pass
 	
 func _on_btn_join_pressed() -> void:
 	if not ui_scene.is_empty():
@@ -39,7 +38,8 @@ func _on_btn_join_pressed() -> void:
 		GameNetwork.player_info["name"] = line_edit_player_name.text
 		GameNetwork._init_client()
 		Global.game_controller.change_gui_scene(ui_scene)
-	pass
+		Global.show_connection_status()
+	#pass
 
 func rand_str()->String:
 	var rng = RandomNumberGenerator.new()

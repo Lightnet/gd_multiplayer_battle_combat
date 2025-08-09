@@ -27,10 +27,15 @@ func _ready() -> void:
 	clear_messages()
 	clear_lobby_players()
 	GameNetwork.player_connected.connect(_on_connect_player)
-	GameNetwork.server_disconnected.connect(_on_disconnect) #server disconnect to call clients
 	GameNetwork.player_disconnected.connect(_on_player_disconnected)
+	GameNetwork.player_failed_connected.connect(_on_player_failed_connected)
+	GameNetwork.server_disconnected.connect(_on_disconnect) #server disconnect to call clients
 	#pass
-
+	
+func _on_player_failed_connected():
+	Global.game_controller.change_gui_scene("res://scenes/ui/ui_menu_multiplayer.tscn")
+	#pass
+	
 func _on_connect_player(peer_id, player_info):
 	var lobby_player = UI_LOBBY_PLAYER.instantiate()
 	
@@ -41,9 +46,10 @@ func _on_connect_player(peer_id, player_info):
 
 func _exit_tree() -> void:
 	GameNetwork.player_connected.disconnect(_on_connect_player)
-	GameNetwork.server_disconnected.disconnect(_on_disconnect)
 	GameNetwork.player_disconnected.disconnect(_on_player_disconnected)
-	pass
+	GameNetwork.player_failed_connected.disconnect(_on_player_failed_connected)
+	GameNetwork.server_disconnected.disconnect(_on_disconnect)
+	#pass
 
 func _on_disconnect()->void:
 	print("server disconnected")
