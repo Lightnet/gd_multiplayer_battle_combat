@@ -33,6 +33,7 @@ enabled=PackedStringArray("res://addons/console/plugin.cfg")
 connectionstatus=""
 spawnpoint=""
 spawnmanager=""
+player=""
 
 [input]
 

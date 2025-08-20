@@ -58,7 +58,7 @@ func _ready():
 	if not is_multiplayer_authority(): return
 	#print("is_multiplayer_authority():", is_multiplayer_authority())
 	camera.current = true
-	capture_mouse()
+	#capture_mouse()
 	set_ui_health()
 	#if spawn_position:
 		#await get_tree().create_timer(0.5).timeout
@@ -70,18 +70,33 @@ func _ready():
 func _unhandled_input(event: InputEvent) -> void:
 	#print("event mo?")
 	if not is_multiplayer_authority(): return
+	
 	if Input.is_action_just_pressed("jump"): jumping = true
 	if event.is_action_pressed("ui_cancel"):
 		if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+			mouse_captured = true
 		else:
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+			mouse_captured = false
 	#if Input.is_action_just_pressed("primaryfire"):
 		#test_fire.rpc()
 		#pass
 	
 func _input(event):
 	if not is_multiplayer_authority(): return
+	
+	#if event.is_action_pressed("escape"):
+		#if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
+			###Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+			#Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+			#mouse_captured = true
+		#else:
+			###Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+			#Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+			#mouse_captured = false
+		#pass
+	
 	if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
 		return
 	if event is InputEventMouseMotion:
@@ -297,7 +312,7 @@ func set_ui_health():
 func _on_receive_hit_float(amount:float)->void:
 	stats_data.health -= amount
 	print("HEALTH: ", stats_data.health)
-	pass
+	#pass
 #
 
 @rpc("any_peer","call_local") #
@@ -305,7 +320,6 @@ func _on_death():
 	stats_data.health = 100
 	set_ui_health()
 	var spawn_manager = get_tree().get_first_node_in_group("spawnmanager")
-	
 	var new_pos = spawn_manager.random_spawn()
 	global_position = new_pos
-	pass
+	#pass

@@ -1,11 +1,15 @@
 # gd multiplayer battle combat
 
-# Information:
- Work in progress. 
- 
- This sample project for multiplayer. To know how GodotEngine Multiplayer Peer works. There no auth checks yet.
+# License: MIT
 
- To create some basic features for player controller to make first person shooter and melee. As well how handle entity projectiles and hit collisions. It will be expand later for combat system test. 
+# Godot Engine: 4.4.1
+
+# Information:
+   Work in progress. 
+
+  The sample build for multiplayer has some simple lobdy, chat, player shoot, death on random spawn reset to health. Has basic player controller to make first person shooter and melee attack test. As well how handle entity projectiles and hit collisions.
+ 
+  To know how Godot Engine Multiplayer API Peers works. It will be expand later for combat system test. 
 
 # Features and work in progress:
  - [ ] network
@@ -60,14 +64,13 @@
  - [ ] dialog
 	- [ ] ban user
 	- [ ] access deined
-	- [ ] 
+	- [ ] disconnect
+	- [ ] connect
 # Controls:
 - W,A,S,D = movement
 - Mouse Move = Camera Rotate
 - Escape = toggle capture screen
-```
-- ` = Dev Console
-```
+- backqute = Dev Console
 - F1 = Game Menu
 - ...
 
@@ -87,40 +90,8 @@ players # List peer id and name
 ping # get  multiplayer.get_unique_id(), multiplayer.is_server()
 ```
 
-# Network:
-  RPCs (Remote Procedure Calls)
-
-  Just prototyping how to handle network. Need to have sync and spawn item correctly.
-  
-  Note that need to set up and assign set_multiplayer_authority(player id) when handle player who own to spawn item props.
-```
-@rpc("call_local")
-func shoot(shooter_pid):
-	var bullet = BULLET.instantiate()
-	bullet.set_multiplayer_authority(shooter_pid)
-	get_parent().add_child(bullet)
-	# delay 
-	await get_tree().create_timer(0.01).timeout #wait for sync
-	bullet.transform = $GunCOntainer/GunSprite/Muzzle.global_transform
-```
-  For reason for await is need to wait for node tree to be added and update the data to scene to other peers else error. As well assign the set_multiplayer_authority on the node to handle identity on the network for who in control of the instance or create to node object.
-
-  Note that class resources does not work as become object type in rpc. It can only send parameters not object data. In simple words very basic variable like string, int, float and array types. Will use round about ways.
-```
-# player , character3d
-func _on_receive_hit(hit_info_data:HitInfoData)->void:
-	print("player name id:", name)
-	_on_receive_hit_params.rpc_id(get_multiplayer_authority(), "Physical", 10)
-	pass
-
-@rpc("any_peer","call_local") #
-func _on_receive_hit_params(_type:String,_amount:float)->void:
-	if _type == "Physical":
-		stats_data.health -= _amount
-		print("HEALTH: ", stats_data.health)
-	pass
-```
-  As long the objects are sync to able to call_local to update variable.
+# network mutliplayer:
+  Work in progress.
 
 # List:
 - Dictionary 
@@ -130,12 +101,13 @@ func _on_receive_hit_params(_type:String,_amount:float)->void:
 - float
 - bool
 
-## notes:
+## Notes:
  - Allowing direct transmission of arbitrary objects could pose security risks, as it might enable remote code injection or other vulnerabilities if not handled carefully.
  - Animation sync need to config as different from server and client fallback or go to default pose animation to reset zero.
 
 # Collision:
-	
+  There two type physics collision  and area detect. It depend on the job.
+
 ## Rigbody3D:
   Need to config the Solver to able collision event for _on_body_shape_entered.
 ```
@@ -143,7 +115,7 @@ contact_monitor = true
 max_contacts_reported = 1
 ```
 
-# game logics:
+# Game Logics:
 	
 ```
 -autoload script
@@ -151,6 +123,7 @@ max_contacts_reported = 1
 		- this handle save and load config
 	- Global
 		- this handle scene change for scene 2d and 3d, GUI (graphic user interface)
+		- handle notify message if exist in the scene
 	- GameNetwork
 		- this handle network set up for server and client
 
@@ -161,8 +134,7 @@ max_contacts_reported = 1
 	- start_game
 	- handle disconnect on client peer
 ```
-
-# multiplayer start and loading:
+# Multiplayer start and loading:
 - When the start scene load path file
 	- wait for scene load and client to add counter
 - check while clients finish loading (need to prevent other player join in later)
@@ -171,8 +143,9 @@ max_contacts_reported = 1
 
 # Notes:
 - network error sync on
-	- projectile spawn out of sync
-	- spawn player out out of sync
+	- projectile spawn out of sync due to name set by godot api
+	- spawn player out out of sync due to main server need to wait for scene to loaded first for clients to sync.
+	- strange capture screen which error out the sync when out focus when capture mouse out sync 
 	- 
 
 # Design notes:

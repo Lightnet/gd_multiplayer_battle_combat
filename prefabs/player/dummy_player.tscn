@@ -27,7 +27,7 @@ properties/4/replication_mode = 1
 [sub_resource type="BoxMesh" id="BoxMesh_x8v5m"]
 size = Vector3(0.2, 0.2, 0.2)
 
-[node name="DummyPlayer" type="CharacterBody3D" node_paths=PackedStringArray("fire_point")]
+[node name="DummyPlayer" type="CharacterBody3D" node_paths=PackedStringArray("fire_point") groups=["player"]]
 collision_layer = 2
 script = ExtResource("1_x8v5m")
 fire_point = NodePath("Neck/Camera3D/HandRight")
