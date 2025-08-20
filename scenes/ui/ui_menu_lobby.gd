@@ -19,13 +19,14 @@ const UI_LOBBY_PLAYER = preload("res://scenes/ui/ui_lobby_player.tscn")
 func _ready() -> void:
 	label_player_name.text = GameNetwork.player_info.name
 	label_network_type.text = GameNetwork.network_type
-	
-	if GameNetwork.network_type == "SERVER":
-		btn_start.disabled = false
-	else:
-		btn_start.disabled = true
 	clear_messages()
 	clear_lobby_players()
+	if GameNetwork.network_type == "SERVER":
+		btn_start.disabled = false
+		add_lobby_player(1, GameNetwork.player_info.name)
+	else:
+		btn_start.disabled = true
+	
 	GameNetwork.player_connected.connect(_on_connect_player)
 	GameNetwork.player_disconnected.connect(_on_player_disconnected)
 	GameNetwork.player_failed_connected.connect(_on_player_failed_connected)
@@ -37,12 +38,15 @@ func _on_player_failed_connected():
 	#pass
 	
 func _on_connect_player(peer_id, player_info):
-	var lobby_player = UI_LOBBY_PLAYER.instantiate()
+	add_lobby_player(peer_id, player_info["name"])
+	#pass
 	
+func add_lobby_player(peer_id, player_name):
+	var lobby_player = UI_LOBBY_PLAYER.instantiate()
 	v_box_container_players.add_child(lobby_player)
-	print("name: ", player_info["name"])
-	lobby_player.set_player_name(player_info["name"], peer_id)
-	pass
+	#print("name: ", player_name)
+	lobby_player.set_player_name(player_name, peer_id)
+	#pass
 
 func _exit_tree() -> void:
 	GameNetwork.player_connected.disconnect(_on_connect_player)
@@ -77,11 +81,6 @@ func clear_lobby_players()->void:
 func clear_messages() -> void:
 	for node_msg in vbc_messages.get_children():
 		node_msg.queue_free()
-	pass
-
-func _on_line_edit_chat_message_gui_input(_event: InputEvent) -> void:
-	#if event
-	print("test")
 	pass
 
 func _on_line_edit_chat_message_text_submitted(new_text: String) -> void:
@@ -136,5 +135,4 @@ func _on_accept_dialog_confirmed() -> void:
 	print("close?")
 	multiplayer.multiplayer_peer = null
 	Global.game_controller.change_gui_scene("res://scenes/ui/ui_menu_multiplayer.tscn")
-	
-	pass
+	#pass

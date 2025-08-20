@@ -119,37 +119,36 @@ func cmd_ping():
 	#return
 
 # Every peer will call this when they have loaded the game scene.
-@rpc("any_peer", "call_local", "reliable")
+@rpc("any_peer", "call_remote", "reliable")
 func player_loaded():
 	#print("players_loaded: ",players_loaded)
 	#print("players.size(): ",players.size())
-	if multiplayer.is_server():
-		players_loaded += 1
-		if players_loaded == players.size():
-			#print("All PLAYERS READY LOADED...")
-			#$/root/Game.start_game()
-			#print("scene name",  Global.game_controller.current_3d_scene.name)
-			#var level = Global.game_controller.current_3d_scene.get_node("Level")
-			var level = Global.game_controller.current_3d_scene
-			
-			if not level:
-				print("ERROR NULL NODE3D LEVEL...")
-				return 
-			
-			#print(" Global.game_controller.current_3d_scene",  Global.game_controller.current_3d_scene)
-			#print("level:", level)
-			if level.has_method("start_game"):
-				# might be here for sync object for client and server peers.
-				await get_tree().create_timer(0.5).timeout # it need to wait for sync else node null for client
-				#level.start_game()
-				level.start_game.rpc()
-				#GameNetwork.players
-				#level.add_player(1)
-				#for player in GameNetwork.players:
-					#print("player id", player)
-					#level.add_player(player)
-				
-			players_loaded = 0
+	if not multiplayer.is_server(): return
+	#print("remote player_loaded")
+	players_loaded += 1
+	#push_error("players_loaded: " + str(players_loaded) + " players.size(): "+ str(players.size()))
+	if players_loaded == players.size()-1:#server count remove
+		print("player_loaded start game...")
+		start_game.rpc()
+		players_loaded = 0
+
+@rpc("authority","call_local")
+func start_game():
+	if not multiplayer.is_server(): return
+	#push_error("SERVER START GAME...")
+	#var level = Global.game_controller.current_3d_scene.get_node("Level")
+	var level = Global.game_controller.current_3d_scene
+	if not level:
+		print("ERROR NULL NODE3D LEVEL...")
+		return 
+	#print(" Global.game_controller.current_3d_scene",  Global.game_controller.current_3d_scene)
+	#print("level:", level)
+	if level.has_method("start_game"):
+		# might be here for sync object for client and server peers.
+		# wait for loading else player server will not sync.
+		await get_tree().create_timer(0.5).timeout # it need to wait for sync else node null for client
+		level.start_game.rpc()
+	#pass
 
 func cmd_player_names():
 	print("peer player >>>")
@@ -160,6 +159,5 @@ func cmd_player_names():
 		print("peer player id:", player_idx)
 		if players[player_idx]:
 			print("player name:", players[player_idx]["name"])
-	
-	
-	pass
+			#pass
+	#pass

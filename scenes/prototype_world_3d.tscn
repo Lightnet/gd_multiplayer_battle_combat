@@ -1,14 +1,15 @@
-[gd_scene load_steps=16 format=3 uid="uid://obju20n54n4q"]
+[gd_scene load_steps=17 format=3 uid="uid://obju20n54n4q"]
 
 [ext_resource type="Texture2D" uid="uid://x1b7vuk5ljq5" path="res://addons/kenney_prototype_textures/dark/texture_01.png" id="1_sxvvi"]
 [ext_resource type="Script" uid="uid://dk3kiml8jf427" path="res://scripts/ui/network_world.gd" id="1_v7jeb"]
 [ext_resource type="Texture2D" uid="uid://dvs1ljbm6k8im" path="res://addons/kenney_prototype_textures/orange/texture_02.png" id="3_cpo0o"]
 [ext_resource type="Texture2D" uid="uid://tti8il6bxm21" path="res://addons/kenney_prototype_textures/purple/texture_02.png" id="4_kxbxg"]
-[ext_resource type="Script" uid="uid://dsuiviut0pevj" path="res://scenes/ui_game_chat.gd" id="5_yvmxy"]
+[ext_resource type="Script" uid="uid://dsuiviut0pevj" path="res://scripts/ui/ui_game_chat.gd" id="5_yvmxy"]
 [ext_resource type="PackedScene" uid="uid://b76sn23nf11kw" path="res://scenes/ui/ui_message.tscn" id="6_aapmh"]
 [ext_resource type="Script" uid="uid://dt3ktr7a7qefm" path="res://scenes/ui/ui_game_menu.gd" id="7_aapmh"]
 [ext_resource type="PackedScene" uid="uid://dver0lifwtuu3" path="res://scenes/ui/ui_settings.tscn" id="8_n4jqt"]
 [ext_resource type="PackedScene" uid="uid://djstfyl4t00on" path="res://ui/ui_server_disconnected.tscn" id="9_8q2ku"]
+[ext_resource type="Script" uid="uid://tscw7nscxt0a" path="res://scripts/game/spawn_manager.gd" id="10_373o7"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4xowi"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -63,8 +64,14 @@ material = SubResource("StandardMaterial3D_aapmh")
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.905635, 0.424057, 0, -0.424057, 0.905635, 0, 2.65157, 3.96826)
 
-[node name="SpawnPoint" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.85687, 1.41262, 0)
+[node name="SpawnPoint" type="Node3D" parent="." groups=["spawnpoint"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.857, 0, 0)
+
+[node name="SpawnPoint2" type="Node3D" parent="." groups=["spawnpoint"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.143, 0, 0)
+
+[node name="SpawnPoint3" type="Node3D" parent="." groups=["spawnpoint"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.143, 0, 10)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -213,5 +220,9 @@ offset_left = 8.0
 offset_top = 8.0
 offset_right = 188.664
 offset_bottom = 90.812
+
+[node name="SpawnManager" type="Node" parent="." node_paths=PackedStringArray("spawnpoints") groups=["spawnmanager"]]
+script = ExtResource("10_373o7")
+spawnpoints = [NodePath("../SpawnPoint"), NodePath("../SpawnPoint2"), NodePath("../SpawnPoint3")]
 
 [connection signal="text_submitted" from="CanvasLayer/UIChat/PanelContainer/MarginContainer/VBoxContainer/LineEdit" to="CanvasLayer/UIChat" method="_on_line_edit_text_submitted"]

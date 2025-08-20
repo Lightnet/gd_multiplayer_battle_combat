@@ -90,7 +90,9 @@ func _input(event):
 		if mouse_captured: _rotate_camera()
 	if Input.is_action_just_pressed("primaryfire"):
 		if index_slot == 0:
-			fire_projectile.rpc(multiplayer.get_unique_id())
+			#fire_projectile.rpc(multiplayer.get_unique_id())
+			#attempt_fire.rpc_id(1)# server
+			attempt_fire()
 		if index_slot == 1:
 			fire_projectile.rpc(multiplayer.get_unique_id())
 		if index_slot == 2:
@@ -191,28 +193,65 @@ func fire_melee(_pid:int):
 	melee_stick.attack.rpc_id(get_multiplayer_authority())
 	#pass
 	
-#@rpc("any_peer","call_remote") #nope
-#@rpc("call_local")#nope
-@rpc("call_local") #okay
+# try auth test???
+func attempt_fire()->void:
+	request_shoot()
+	
+func request_shoot()->void:
+	#note multiplayer authority is set for controller
+	if is_multiplayer_authority():
+		#fire_projectile.rpc(multiplayer.get_unique_id())
+		if multiplayer.is_server():
+			fire_projectile.rpc(multiplayer.get_unique_id())
+			#pass
+		else:
+			#remote_fire_projectile.rpc_id(1)
+			fire_projectile.rpc(multiplayer.get_unique_id())
+			#pass
+	#if multiplayer.is_server():
+		#fire_projectile.rpc(multiplayer.get_unique_id())
+	#else:
+		#remote_fire_projectile.rpc_id(1)
+
+@rpc("any_peer","call_remote") # test works when doing remote fire for client
+func remote_fire_projectile():
+	var peer_id = multiplayer.get_remote_sender_id()
+	print("test.......")
+	if multiplayer.is_server():
+		print("server")
+		#fire_projectile.rpc_id(1,peer_id)
+		fire_projectile.rpc(peer_id)
+	#else:#nope just testing
+		#print("client")
+		#fire_projectile.rpc(peer_id)
+	#pass
+
+#only work on server and not client
+#@rpc("authority","call_local") # due to set_multiplayer_authority
+@rpc("any_peer","call_local") #
 func fire_projectile(pid:int):
+	#if not multiplayer.is_server(): return #not here else server projectile can been seen.
+	print("authority > call_local > remote_fire_projectile")
 	#push_error("is_server: " , multiplayer.is_server() , " FIRE ")
 	#print("fire test...")
 	var dummy_box
-	print("index_slot: ", index_slot)
+	#print("index_slot: ", index_slot)
 	if index_slot == 0:
 		dummy_box = DUMMY_BULLET_RED.instantiate()
 	if index_slot == 1:
 		dummy_box = DUMMY_BULLET_GREEN.instantiate()
+	dummy_box.name = Global.get_name_projectile_count()
 	dummy_box.set_multiplayer_authority(pid)
 	dummy_box.own_body = self
 	
 	Global.game_controller.current_3d_scene.add_child(dummy_box)
-	await get_tree().create_timer(0.01).timeout #wait for sync
+	#await get_tree().create_timer(0.01).timeout #wait for sync
 	#dummy_box.set_global_position(Vector3(0.0,2.0,0.0)) #test
 	#dummy_box.set_global_position(fire_point.global_position)
-	dummy_box.set_transform(fire_point.global_transform)
-	if dummy_box.has_method("init_direction"):
-		dummy_box.init_direction()
+	if dummy_box:
+		dummy_box.set_transform(fire_point.global_transform)
+		if dummy_box.has_method("init_direction"):
+			dummy_box.init_direction()
 	#pass
 	
 # Does not work on multiplayer since it object but not recommend to allow which they can inject malice code.  
@@ -232,8 +271,13 @@ func _on_receive_hit(_hit_info_data:HitInfoData)->void:
 @rpc("any_peer","call_local") #
 func _on_receive_hit_params(_type:String,_amount:float)->void:
 	if _type == "Physical":
+		print("DAMAGE....")
 		stats_data.health -= _amount
 		set_ui_health()
+		if stats_data.health <= 0:
+			# death
+			_on_death.rpc()
+			pass
 	pass
 	
 func set_ui_health():
@@ -245,10 +289,9 @@ func set_ui_health():
 	pass
 
 # multiplayer for json
-@rpc("any_peer","call_local") # 
-func _on_receive_hit_json(_data:String)->void:
-	
-	pass
+#@rpc("any_peer","call_local") # 
+#func _on_receive_hit_json(_data:String)->void:
+	#pass
 	
 @rpc("any_peer","call_local") # 
 func _on_receive_hit_float(amount:float)->void:
@@ -256,3 +299,13 @@ func _on_receive_hit_float(amount:float)->void:
 	print("HEALTH: ", stats_data.health)
 	pass
 #
+
+@rpc("any_peer","call_local") #
+func _on_death():
+	stats_data.health = 100
+	set_ui_health()
+	var spawn_manager = get_tree().get_first_node_in_group("spawnmanager")
+	
+	var new_pos = spawn_manager.random_spawn()
+	global_position = new_pos
+	pass

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cw6c22srufran" path="res://scripts/game_controller.gd" id="1_ms3q2"]
 [ext_resource type="PackedScene" uid="uid://bkujnx1vul2fh" path="res://scenes/ui/ui_menu_multiplayer.tscn" id="2_ms3q2"]
-[ext_resource type="Script" uid="uid://dyyxqowp70fdb" path="res://scenes/ui_connection_status.gd" id="3_cqtow"]
+[ext_resource type="Script" uid="uid://dyyxqowp70fdb" path="res://scripts/ui/ui_connection_status.gd" id="3_cqtow"]
 
 [node name="GameController" type="Node" node_paths=PackedStringArray("world_3d", "world_2d", "gui", "current_gui_scene")]
 script = ExtResource("1_ms3q2")

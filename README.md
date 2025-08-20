@@ -10,7 +10,8 @@
 # Features and work in progress:
  - [ ] network
  	- [x] host
- 	- [x] join 
+ 	- [x] join
+		- [x] check for fail connect to server which return to host and join.
 	- [ ] leave game to clean up player entity
 	- [ ] disconnect clean up
  - [ ] global

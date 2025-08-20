@@ -11,7 +11,7 @@ func _ready() -> void:
 	if GameData.game_config:
 		var volume = GameData.get_name_volume(bus_name)
 		if volume:
-			print("volume:", volume)
+			#print("volume:", volume)
 			value = volume
 		pass
 	

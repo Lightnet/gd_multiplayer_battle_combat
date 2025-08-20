@@ -84,3 +84,17 @@ func hide_connection_status()-> void:
 	if len(connectionstatuses) == 1:
 		connectionstatuses[0].hide()
 	#pass
+
+#================================================
+#
+#================================================
+var count_player:int = 0
+func get_name_player_count()->String:
+	count_player+= 1
+	return "player_"+str(count_player)
+	
+var count_projectile:int = 0
+func get_name_projectile_count()->String:
+	count_projectile+= 1
+	return "projectile_"+str(count_projectile)
+	
