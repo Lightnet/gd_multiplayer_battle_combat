@@ -67,6 +67,7 @@
 	- [ ] disconnect
 	- [ ] connect
 # Controls:
+- add simple help menu f1
 - W,A,S,D = movement
 - Mouse Move = Camera Rotate
 - Escape = toggle capture screen
@@ -154,3 +155,7 @@ max_contacts_reported = 1
   -	Battle for being number One.
   -	Multiplayer combat for jobs or hero?
   -	One goal be solo surival of the match or 1vs1 battle.
+
+# Credits:
+- https://kenney.nl/assets
+	- https://kenney.nl/assets/input-prompts

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://obju20n54n4q"]
+[gd_scene load_steps=31 format=3 uid="uid://obju20n54n4q"]
 
 [ext_resource type="Texture2D" uid="uid://x1b7vuk5ljq5" path="res://addons/kenney_prototype_textures/dark/texture_01.png" id="1_sxvvi"]
 [ext_resource type="Script" uid="uid://dk3kiml8jf427" path="res://scripts/ui/network_world.gd" id="1_v7jeb"]
@@ -6,10 +6,24 @@
 [ext_resource type="Texture2D" uid="uid://tti8il6bxm21" path="res://addons/kenney_prototype_textures/purple/texture_02.png" id="4_kxbxg"]
 [ext_resource type="Script" uid="uid://dsuiviut0pevj" path="res://scripts/ui/ui_game_chat.gd" id="5_yvmxy"]
 [ext_resource type="PackedScene" uid="uid://b76sn23nf11kw" path="res://scenes/ui/ui_message.tscn" id="6_aapmh"]
+[ext_resource type="Texture2D" uid="uid://btnu6yi2joe6c" path="res://assets/input_prompts/keyboard_and_mouse/keyboard_f1.svg" id="6_vg1kk"]
 [ext_resource type="Script" uid="uid://dt3ktr7a7qefm" path="res://scenes/ui/ui_game_menu.gd" id="7_aapmh"]
 [ext_resource type="PackedScene" uid="uid://dver0lifwtuu3" path="res://scenes/ui/ui_settings.tscn" id="8_n4jqt"]
 [ext_resource type="PackedScene" uid="uid://djstfyl4t00on" path="res://ui/ui_server_disconnected.tscn" id="9_8q2ku"]
 [ext_resource type="Script" uid="uid://tscw7nscxt0a" path="res://scripts/game/spawn_manager.gd" id="10_373o7"]
+[ext_resource type="Script" uid="uid://cqs6fl6bylb3q" path="res://scenes/ui_shortcutkeys.gd" id="11_gkkro"]
+[ext_resource type="Texture2D" uid="uid://cfohg88bqiru3" path="res://assets/input_prompts/keyboard_and_mouse/keyboard_w.svg" id="11_m0kg2"]
+[ext_resource type="Texture2D" uid="uid://rlr0etg0bmpc" path="res://assets/input_prompts/keyboard_and_mouse/keyboard_s.svg" id="12_omsny"]
+[ext_resource type="Texture2D" uid="uid://os1ln4fxg5x5" path="res://assets/input_prompts/keyboard_and_mouse/keyboard_d.svg" id="14_7clys"]
+[ext_resource type="Texture2D" uid="uid://d2yeuopbaol6p" path="res://assets/input_prompts/keyboard_and_mouse/keyboard_a.svg" id="15_325vk"]
+[ext_resource type="Texture2D" uid="uid://hjfp4jhhouxg" path="res://assets/input_prompts/keyboard_and_mouse/keyboard_space_icon.svg" id="16_pibt0"]
+[ext_resource type="Texture2D" uid="uid://7fh8ifk3jle3" path="res://assets/input_prompts/keyboard_and_mouse/keyboard_shift_icon.svg" id="17_vg1kk"]
+[ext_resource type="Texture2D" uid="uid://bs2pvm3s3oidm" path="res://assets/input_prompts/keyboard_and_mouse/keyboard_c.svg" id="18_m2bh8"]
+[ext_resource type="Texture2D" uid="uid://cs2lmxthyya40" path="res://assets/input_prompts/keyboard_and_mouse/keyboard_escape.svg" id="19_u55kq"]
+[ext_resource type="Texture2D" uid="uid://bkwf28b3bvjd3" path="res://assets/input_prompts/keyboard_and_mouse/mouse_left.svg" id="20_v5tfn"]
+[ext_resource type="Texture2D" uid="uid://diwbhwa683n75" path="res://assets/input_prompts/keyboard_and_mouse/keyboard_1.svg" id="22_m2bh8"]
+[ext_resource type="Texture2D" uid="uid://cgtesv5mkds0h" path="res://assets/input_prompts/keyboard_and_mouse/keyboard_2.svg" id="23_u55kq"]
+[ext_resource type="Texture2D" uid="uid://2no1t24wub1c" path="res://assets/input_prompts/keyboard_and_mouse/keyboard_3.svg" id="24_v5tfn"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4xowi"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -37,6 +51,10 @@ uv1_triplanar = true
 
 [node name="Level" type="Node3D"]
 script = ExtResource("1_v7jeb")
+
+[node name="SpawnManager" type="Node" parent="." node_paths=PackedStringArray("spawnpoints") groups=["spawnmanager"]]
+script = ExtResource("10_373o7")
+spawnpoints = [NodePath("../SpawnPoint"), NodePath("../SpawnPoint2"), NodePath("../SpawnPoint3")]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
@@ -67,11 +85,17 @@ transform = Transform3D(1, 0, 0, 0, 0.905635, 0.424057, 0, -0.424057, 0.905635, 
 [node name="SpawnPoint" type="Node3D" parent="." groups=["spawnpoint"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.857, 0, 0)
 
+[node name="Marker3D" type="Marker3D" parent="SpawnPoint"]
+
 [node name="SpawnPoint2" type="Node3D" parent="." groups=["spawnpoint"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.143, 0, 0)
 
+[node name="Marker3D" type="Marker3D" parent="SpawnPoint2"]
+
 [node name="SpawnPoint3" type="Node3D" parent="." groups=["spawnpoint"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.143, 0, 10)
+
+[node name="Marker3D" type="Marker3D" parent="SpawnPoint3"]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -130,6 +154,18 @@ text = "Health:"
 [node name="Label_Health" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 text = "00"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="CanvasLayer/Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+texture = ExtResource("6_vg1kk")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+text = "Shortcut Keys"
 
 [node name="UIChat" type="Control" parent="CanvasLayer"]
 layout_mode = 3
@@ -221,8 +257,166 @@ offset_top = 8.0
 offset_right = 188.664
 offset_bottom = 90.812
 
-[node name="SpawnManager" type="Node" parent="." node_paths=PackedStringArray("spawnpoints") groups=["spawnmanager"]]
-script = ExtResource("10_373o7")
-spawnpoints = [NodePath("../SpawnPoint"), NodePath("../SpawnPoint2"), NodePath("../SpawnPoint3")]
+[node name="UIShortcutkeys" type="PanelContainer" parent="CanvasLayer"]
+visible = false
+offset_left = 11.0
+offset_top = 90.0
+offset_right = 210.0
+offset_bottom = 393.0
+script = ExtResource("11_gkkro")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UIShortcutkeys"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UIShortcutkeys/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UIShortcutkeys/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UIShortcutkeys/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("11_m0kg2")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/UIShortcutkeys/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Forward"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/UIShortcutkeys/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UIShortcutkeys/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+texture = ExtResource("12_omsny")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/UIShortcutkeys/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Backward"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/UIShortcutkeys/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UIShortcutkeys/MarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+texture = ExtResource("14_7clys")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/UIShortcutkeys/MarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "Right"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="CanvasLayer/UIShortcutkeys/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UIShortcutkeys/MarginContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+texture = ExtResource("15_325vk")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/UIShortcutkeys/MarginContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+text = "Left"
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="CanvasLayer/UIShortcutkeys/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UIShortcutkeys/MarginContainer/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+texture = ExtResource("16_pibt0")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/UIShortcutkeys/MarginContainer/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+text = "Jump"
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="CanvasLayer/UIShortcutkeys/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UIShortcutkeys/MarginContainer/VBoxContainer/HBoxContainer6"]
+layout_mode = 2
+texture = ExtResource("17_vg1kk")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/UIShortcutkeys/MarginContainer/VBoxContainer/HBoxContainer6"]
+layout_mode = 2
+text = "Sprint"
+
+[node name="HBoxContainer7" type="HBoxContainer" parent="CanvasLayer/UIShortcutkeys/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UIShortcutkeys/MarginContainer/VBoxContainer/HBoxContainer7"]
+layout_mode = 2
+texture = ExtResource("18_m2bh8")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/UIShortcutkeys/MarginContainer/VBoxContainer/HBoxContainer7"]
+layout_mode = 2
+text = "Crouch"
+
+[node name="HBoxContainer8" type="HBoxContainer" parent="CanvasLayer/UIShortcutkeys/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UIShortcutkeys/MarginContainer/VBoxContainer/HBoxContainer8"]
+layout_mode = 2
+texture = ExtResource("19_u55kq")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/UIShortcutkeys/MarginContainer/VBoxContainer/HBoxContainer8"]
+layout_mode = 2
+text = "Escape Toggle Camera"
+
+[node name="HBoxContainer9" type="HBoxContainer" parent="CanvasLayer/UIShortcutkeys/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UIShortcutkeys/MarginContainer/VBoxContainer/HBoxContainer9"]
+layout_mode = 2
+texture = ExtResource("20_v5tfn")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/UIShortcutkeys/MarginContainer/VBoxContainer/HBoxContainer9"]
+layout_mode = 2
+text = "Fire Weapon"
+
+[node name="HBoxContainer10" type="HBoxContainer" parent="CanvasLayer/UIShortcutkeys/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UIShortcutkeys/MarginContainer/VBoxContainer/HBoxContainer10"]
+layout_mode = 2
+texture = ExtResource("22_m2bh8")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/UIShortcutkeys/MarginContainer/VBoxContainer/HBoxContainer10"]
+layout_mode = 2
+text = "Slot 1"
+
+[node name="HBoxContainer11" type="HBoxContainer" parent="CanvasLayer/UIShortcutkeys/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UIShortcutkeys/MarginContainer/VBoxContainer/HBoxContainer11"]
+layout_mode = 2
+texture = ExtResource("23_u55kq")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/UIShortcutkeys/MarginContainer/VBoxContainer/HBoxContainer11"]
+layout_mode = 2
+text = "Slot 2"
+
+[node name="HBoxContainer12" type="HBoxContainer" parent="CanvasLayer/UIShortcutkeys/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UIShortcutkeys/MarginContainer/VBoxContainer/HBoxContainer12"]
+layout_mode = 2
+texture = ExtResource("24_v5tfn")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/UIShortcutkeys/MarginContainer/VBoxContainer/HBoxContainer12"]
+layout_mode = 2
+text = "Slot 3"
 
 [connection signal="text_submitted" from="CanvasLayer/UIChat/PanelContainer/MarginContainer/VBoxContainer/LineEdit" to="CanvasLayer/UIChat" method="_on_line_edit_text_submitted"]
