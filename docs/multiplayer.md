@@ -3,6 +3,8 @@
 # Information:
   Keep it simple as correct logics as project game is on going build.
 
+  Note that doing some testing how set authority on node as it is tricky. Need some trial and error to know how it works.
+
 # Design:
   There are couple things need to be sure and sync for peer to peer but there is serer and client.
 

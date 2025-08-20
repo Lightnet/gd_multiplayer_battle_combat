@@ -1,6 +1,7 @@
 extends RigidBody3D
 
 var own_body:Node3D
+@export var SPEED:float = 5 #50
 
 #func _ready() -> void:
 	#pass
@@ -10,7 +11,7 @@ var own_body:Node3D
 	
 func init_direction()->void:
 	var forward_dir = -global_transform.basis.z.normalized()
-	apply_central_impulse(forward_dir * 50)
+	apply_central_impulse(forward_dir * SPEED)
 	continuous_cd = true # Enable CCD for fast movement
 
 func _on_body_entered(body: Node) -> void:

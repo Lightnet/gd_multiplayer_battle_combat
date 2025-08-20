@@ -52,3 +52,5 @@ mesh = SubResource("BoxMesh_x8v5m")
 
 [node name="melee_stick" parent="Neck/Camera3D/HandRight" instance=ExtResource("2_f6mip")]
 visible = false
+
+[node name="PrototypeProjectile" type="Node3D" parent="Neck/Camera3D/HandRight"]

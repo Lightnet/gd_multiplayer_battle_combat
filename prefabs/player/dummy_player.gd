@@ -3,7 +3,6 @@ class_name Player
 
 @export var stats_data:StatsData
 
-
 #const DUMMY_BOX = preload("res://prefabs/dummy_box/dummy_box.tscn")
 #const DUMMY_SMALL_BOX = preload("res://prefabs/dummy_small_box/dummy_small_box.tscn")
 #const DUMMY_BULLET = preload("res://prefabs/dummy_bullet/dummy_bullet.tscn")
@@ -12,18 +11,15 @@ const DUMMY_BULLET_GREEN = preload("res://prefabs/dummy_bullet/dummy_bullet_gree
 const DUMMY_BULLET_RED = preload("res://prefabs/dummy_bullet/dummy_bullet_red.tscn")
 
 @onready var melee_stick: Node3D = $Neck/Camera3D/HandRight/melee_stick
-
 @export var index_slot:int = 0
 
 #@export_category("Player")
 @onready var camera = $Neck/Camera3D
 @export var fire_point: Node3D
-
 @export var speed = 8.0
 @export var acceleration = 5.0
 @export var jump_speed = 8.0
 @onready var spring_arm = $Neck
-
 #@export var spawn_position:Vector3
 
 var mouse_captured: bool = false
@@ -216,13 +212,17 @@ func request_shoot()->void:
 	#note multiplayer authority is set for controller
 	if is_multiplayer_authority():
 		#fire_projectile.rpc(multiplayer.get_unique_id())
-		if multiplayer.is_server():
-			fire_projectile.rpc(multiplayer.get_unique_id())
+		if multiplayer.is_server(): #server
+			#fire_projectile.rpc(multiplayer.get_unique_id())
+			#fire_projectile.rpc(1)
+			fire_projectile_test.rpc(1)
 			#pass
-		else:
+		else: #client
+			#fire_projectile.rpc(1)
 			#remote_fire_projectile.rpc_id(1)
-			fire_projectile.rpc(multiplayer.get_unique_id())
-			#pass
+			#fire_projectile.rpc(multiplayer.get_unique_id())
+			fire_projectile_test.rpc(1)
+			pass
 	#if multiplayer.is_server():
 		#fire_projectile.rpc(multiplayer.get_unique_id())
 	#else:
@@ -230,23 +230,44 @@ func request_shoot()->void:
 
 @rpc("any_peer","call_remote") # test works when doing remote fire for client
 func remote_fire_projectile():
-	var peer_id = multiplayer.get_remote_sender_id()
-	print("test.......")
+	#var peer_id = multiplayer.get_remote_sender_id()
+	#print("any_peer > call_remote > remote_fire_projectile")
 	if multiplayer.is_server():
-		print("server")
+		#print("server")
 		#fire_projectile.rpc_id(1,peer_id)
-		fire_projectile.rpc(peer_id)
+		#fire_projectile.rpc(peer_id)
+		fire_projectile_test.rpc(1)
+		#fire_projectile_test.rpc_id(multiplayer.get_remote_sender_id(),1) #nope just test
+		pass
 	#else:#nope just testing
 		#print("client")
 		#fire_projectile.rpc(peer_id)
 	#pass
+	
+@rpc("authority","call_local","reliable") # works, client does not work remote since client set authority peer id
+func fire_projectile_test(_pid:int):
+	var dummy_box
+	if index_slot == 0:
+		dummy_box = DUMMY_BULLET_RED.instantiate()
+	if index_slot == 1:
+		dummy_box = DUMMY_BULLET_GREEN.instantiate()
+	dummy_box.name = Global.get_name_projectile_count()
+	dummy_box.set_multiplayer_authority(1) # Server controls projectile
+	dummy_box.own_body = self
+	Global.game_controller.current_3d_scene.add_child(dummy_box)
+	if dummy_box:
+		dummy_box.set_transform(fire_point.global_transform)
+		if dummy_box.has_method("init_direction"):
+			dummy_box.init_direction()
+	#pass
+
 
 #only work on server and not client
-#@rpc("authority","call_local") # due to set_multiplayer_authority
-@rpc("any_peer","call_local") #
-func fire_projectile(pid:int):
+#@rpc("authority","call_local","reliable") # due to set_multiplayer_authority
+@rpc("any_peer","call_local","reliable") # works
+func fire_projectile(_pid:int):
 	#if not multiplayer.is_server(): return #not here else server projectile can been seen.
-	print("authority > call_local > remote_fire_projectile")
+	#print("authority > call_local > remote_fire_projectile")
 	#push_error("is_server: " , multiplayer.is_server() , " FIRE ")
 	#print("fire test...")
 	var dummy_box
@@ -256,7 +277,9 @@ func fire_projectile(pid:int):
 	if index_slot == 1:
 		dummy_box = DUMMY_BULLET_GREEN.instantiate()
 	dummy_box.name = Global.get_name_projectile_count()
-	dummy_box.set_multiplayer_authority(pid)
+	#dummy_box.set_multiplayer_authority(pid)
+	print("auth: ", multiplayer.get_unique_id())
+	dummy_box.set_multiplayer_authority(1)# Server controls projectile
 	dummy_box.own_body = self
 	
 	Global.game_controller.current_3d_scene.add_child(dummy_box)
@@ -268,7 +291,8 @@ func fire_projectile(pid:int):
 		if dummy_box.has_method("init_direction"):
 			dummy_box.init_direction()
 	#pass
-	
+
+
 # Does not work on multiplayer since it object but not recommend to allow which they can inject malice code.  
 #@rpc("any_peer","call_local") #
 func _on_receive_hit(_hit_info_data:HitInfoData)->void:
