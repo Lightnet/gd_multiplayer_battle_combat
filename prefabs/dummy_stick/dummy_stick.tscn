@@ -98,4 +98,5 @@ libraries = {
 replication_config = SubResource("SceneReplicationConfig_30fgs")
 
 [connection signal="body_entered" from="pivot/Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="pivot/Area3D" to="." method="_on_area_3d_body_exited"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

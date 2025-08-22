@@ -5,7 +5,7 @@
 # Godot Engine: 4.4.1
 
 # Information:
-   Work in progress. 
+  Work in progress.
 
   The sample build for multiplayer has some simple lobdy, chat, player shoot, death on random spawn reset to health. Has basic player controller to make first person shooter and melee attack test. As well how handle entity projectiles and hit collisions.
  
@@ -25,6 +25,7 @@
  - [ ] scene
  	- [x] simple game logic spawn
  	- [x] set player position
+	- [x] random spawn location
  	- [x] inputs
 	- [ ] quit clean up
  - [ ] entity
@@ -33,7 +34,7 @@
  	- [x] projectiles
 	- [x] dummy melee (simple test)
 	- [x] spawn dummy cube (not collision)
-	- [x] spawn dummy projectile cube (move in -z direction)
+	- [x] spawn dummy projectile cube (move in forward -z direction)
  - [ ] player
 	- [x] movement
 	- [x] weapon bullet 0
@@ -66,6 +67,7 @@
 	- [ ] access deined
 	- [ ] disconnect
 	- [ ] connect
+	
 # Controls:
 - add simple help menu f1
 - W,A,S,D = movement
@@ -91,7 +93,7 @@ players # List peer id and name
 ping # get  multiplayer.get_unique_id(), multiplayer.is_server()
 ```
 
-# network mutliplayer:
+# Network mutliplayer:
   Work in progress.
 
 # List:

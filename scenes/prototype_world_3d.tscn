@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://obju20n54n4q"]
+[gd_scene load_steps=32 format=3 uid="uid://obju20n54n4q"]
 
 [ext_resource type="Texture2D" uid="uid://x1b7vuk5ljq5" path="res://addons/kenney_prototype_textures/dark/texture_01.png" id="1_sxvvi"]
 [ext_resource type="Script" uid="uid://dk3kiml8jf427" path="res://scripts/ui/network_world.gd" id="1_v7jeb"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://b76sn23nf11kw" path="res://scenes/ui/ui_message.tscn" id="6_aapmh"]
 [ext_resource type="Texture2D" uid="uid://btnu6yi2joe6c" path="res://assets/input_prompts/keyboard_and_mouse/keyboard_f1.svg" id="6_vg1kk"]
 [ext_resource type="Script" uid="uid://dt3ktr7a7qefm" path="res://scenes/ui/ui_game_menu.gd" id="7_aapmh"]
+[ext_resource type="Script" uid="uid://drrfmnhjebvd8" path="res://scenes/label_mouse.gd" id="7_m2bh8"]
 [ext_resource type="PackedScene" uid="uid://dver0lifwtuu3" path="res://scenes/ui/ui_settings.tscn" id="8_n4jqt"]
 [ext_resource type="PackedScene" uid="uid://djstfyl4t00on" path="res://ui/ui_server_disconnected.tscn" id="9_8q2ku"]
 [ext_resource type="Script" uid="uid://tscw7nscxt0a" path="res://scripts/game/spawn_manager.gd" id="10_373o7"]
@@ -131,7 +132,7 @@ text = "Network:"
 
 [node name="Label_NetworkType" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-text = "Network Type: Server"
+text = "None"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/Control/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -166,6 +167,18 @@ expand_mode = 2
 [node name="Label" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/HBoxContainer4"]
 layout_mode = 2
 text = "Shortcut Keys"
+
+[node name="Label" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "Mouse Mode: Visible"
+script = ExtResource("7_m2bh8")
 
 [node name="UIChat" type="Control" parent="CanvasLayer"]
 layout_mode = 3
